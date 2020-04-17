@@ -4,11 +4,6 @@
 * File          : Parsnal main css files
 * Version       : 1.0
 * ---------------------------------------------------------------------------------------- */
-
-
-
-
-
 /* INDEX
 ----------------------------------------------------------------------------------------
 
@@ -31,30 +26,26 @@
 09. Footer area css
 
 -------------------------------------------------------------------------------------- */
-
-
 /*  Import Google Fonts  */
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,700,900');
-
-
 
 /* ----------------------------------------------------------------------------------------
 *                                       01. General css
 * -------------------------------------------------------------------------------------- */
 html,
 body {
-    height: 100%
+  height: 100%
 }
 
 body {
-    color: #666;
-    font-weight: 400;
-    width: 100%;
-    height: 100%;
-    font-size: 15px;
-    line-height: 24px;
-    letter-spacing: 1px;
-    font-family: 'Roboto', sans-serif;
+  color: #666;
+  font-weight: 400;
+  width: 100%;
+  height: 100%;
+  font-size: 15px;
+  line-height: 24px;
+  letter-spacing: 1px;
+  font-family: 'Roboto', sans-serif;
 }
 
 h1,
@@ -63,46 +54,46 @@ h3,
 h4,
 h5,
 h6 {
-    font-weight: 400;
-    font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-family: 'Helvetica Neue', sans-serif;
 }
 
 p {
-    margin-bottom: 20px;
-    letter-spacing: 0.5px;
+  margin-bottom: 20px;
+  letter-spacing: 0.5px;
 }
 
 p.text-muted {
-    line-height: 15px;
-    margin-bottom: 10px;
+  line-height: 15px;
+  margin-bottom: 10px;
 }
 
 a {
-    text-decoration: none;
-    transition: all 0.3s;
-    -webkit-transition: all 0.3s;
+  text-decoration: none;
+  transition: all 0.3s;
+  -webkit-transition: all 0.3s;
 }
 
 a:hover {
-    color: #fff;
-    text-decoration: none;
+  color: #fff;
+  text-decoration: none;
 }
 
 a:focus {
-    outline: none;
-    text-decoration: none;
+  outline: none;
+  text-decoration: none;
 }
 
 ul,
 li {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 fieldset {
-    border: 0 none;
-    margin: 0 auto;
-    padding: 0;
+  border: 0 none;
+  margin: 0 auto;
+  padding: 0;
 }
 
 .btn.active.focus,
@@ -111,291 +102,297 @@ fieldset {
 .btn.focus:active,
 .btn:active:focus,
 .btn:focus {
-    outline: none;
+  outline: none;
 }
 
 .btn, input[type='submit'] {
-    display: inline-block;
-    background: #fff;
-    padding: 10px 25px;
-    border: 2px solid #27ae60;
-    background-color: #27ae60;
-    color: #fff;
-    text-transform: uppercase;
-    font-weight: 600;
-    border-radius: 0px;
-    transition: 0.3s;
-    -moz-transition: 0.3s;
-    -webkit-transition: 0.3s;
-    font-family: 'Roboto', sans-serif;
+  display: inline-block;
+  background: #fff;
+  padding: 10px 25px;
+  border: 2px solid #27ae60;
+  background-color: #27ae60;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 600;
+  border-radius: 0px;
+  transition: 0.3s;
+  -moz-transition: 0.3s;
+  -webkit-transition: 0.3s;
+  font-family: 'Roboto', sans-serif;
 }
 
 .btn:hover, input[type='submit']:hover {
-    background-color: #fff;
-    color: #27ae60;
+  background-color: #fff;
+  color: #27ae60;
 }
 
 .btn-white {
-    background-color: #fff;
-    color: #27ae60;
+  background-color: #fff;
+  color: #27ae60;
 }
 
 .btn-white:hover {
-    background-color: #27ae60;
-    color: #fff;
+  background-color: #27ae60;
+  color: #fff;
 }
 
 .section {
-    padding: 70px 0px;
+  padding: 70px 0px;
 }
 
 .section-title {
-    margin: auto;
-    max-width: 800px;
-    margin-bottom: 60px;
+  margin: auto;
+  max-width: 800px;
+  margin-bottom: 60px;
 }
 
 .section-title h2 {
-    font-size: 30px;
-    font-weight: 600;
-    color: #555;
-    margin-bottom: 25px;
-    line-height: 35px;
-    position: relative;
-    margin-top: 0;
-    padding-bottom: 20px;
-    text-transform: uppercase;
+  font-size: 30px;
+  font-weight: 600;
+  color: #555;
+  margin-bottom: 25px;
+  line-height: 35px;
+  position: relative;
+  margin-top: 0;
+  padding-bottom: 20px;
+  text-transform: uppercase;
 }
 
 .section-title h2:before {
-    content: '';
-    position: absolute;
-    width: 80px;
-    height: 2px;
-    margin-left: -40px;
-    left: 50%;
-    bottom: 0px;
-    background-color: #555;
+  content: '';
+  position: absolute;
+  width: 80px;
+  height: 2px;
+  margin-left: -40px;
+  left: 50%;
+  bottom: 0px;
+  background-color: #555;
 }
 
 .section-title p {
-    margin-top: 25px;
+  margin-top: 25px;
 }
 
 h3.subtitle {
-    margin-top: 0;
-    margin-bottom: 30px;
-    position: relative;
-    text-transform: uppercase;
-    font-weight: 600;
-    color: #555;
-    font-size: 22px;
+  margin-top: 0;
+  margin-bottom: 30px;
+  position: relative;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #555;
+  font-size: 22px;
 }
 
 /* preloader css */
 #preloader {
-    position: fixed;
-    left: 0;
-    top: 0;
-    z-index: 99999;
-    width: 100%;
-    height: 100%;
-    overflow: visible;
-    background-image: url(../img/preloader.gif);
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-color: #fff;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 99999;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  background-image: url(../img/preloader.gif);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-color: #fff;
 }
 
 .table {
-    display: table;
-    width: 100%;
-    height: 100%;
+  display: table;
+  width: 100%;
+  height: 100%;
 }
 
 .table-cell {
-    display: table-cell;
-    vertical-align: middle;
+  display: table-cell;
+  vertical-align: middle;
 }
-
-
-
-
 
 /* ----------------------------------------------------------------------------------------
 *                               02. Navigation area css
 * --------------------------------------------------------------------------------------- */
 .sticky-menu {
-    background: #27ae60;
-    transition: all 0.3s ease-out;
-    -webkit-transition: all 0.3s ease-out;
+  background: #27ae60;
+  transition: all 0.3s ease-out;
+  -webkit-transition: all 0.3s ease-out;
 }
 
 .mainmenu {
-    margin-top: 10px;
-    transition: all 0.3s ease-out;
-    -webkit-transition: all 0.3s ease-out;
+  margin-top: 10px;
+  transition: all 0.3s ease-out;
+  -webkit-transition: all 0.3s ease-out;
 }
 
 .sticky-menu .mainmenu {
-    margin-top: 0px;
+  margin-top: 0px;
 }
 
 .navbar {
-    margin-bottom: 0;
-    border: 0px;
+  margin-bottom: 0;
+  border: 0px;
 }
 
 .navbar-brand {
-    display: block;
-    color: #fff;
-    text-transform: uppercase;
-    font-weight: 900;
-    font-size: 25px;
-    padding-left: 0;
-    font-family: 'Roboto', 'sans-serif';
+  display: block;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 900;
+  font-size: 25px;
+  padding-left: 0;
+  font-family: 'Roboto', 'sans-serif';
 }
 
 .sticky-menu .navbar-brand {
-    font-size: 20px;
+  font-size: 20px;
 }
 
-.navbar-nav  li {
-    float: none;
-    display: inline-block;
+.navbar-nav li {
+  float: none;
+  display: inline-block;
 }
 
 .navbar-nav li a {
-    color: #f5f5f5;
-    font-weight: 600;
-    font-size: 14px;
-    font-family: 'Roboto', Helvetica, Arial, sans-serif;
+  color: #f5f5f5;
+  font-weight: 600;
+  font-size: 14px;
+  font-family: 'Roboto', Helvetica, Arial, sans-serif;
 }
 
-.nav > li > a:hover,
-.nav > li > a:active,
-.nav > li > a:focus {
-    background: none;
-    color: #bbb;
+.nav>li>a:hover,
+.nav>li>a:active,
+.nav>li>a:focus {
+  background: none;
+  color: #bbb;
 }
 
 .mainmenu .navbar-nav li.active a {
-    color: #fff;
-    font-weight: 600;
+  color: #fff;
+  font-weight: 600;
 }
-
-
-
-
 
 /* ----------------------------------------------------------------------------------------
 *                               03. Header area css
 * -------------------------------------------------------------------------------------- */
-
 .header-area {
-    height: 100%;
-    min-height: 300px;
-    position: relative;
-    background-image: url(../img/bg/bg.jpg);
-    background-size: cover;
-    background-position: center top;
+  height: 100%;
+  min-height: 300px;
+  position: relative;
+  background-image: url(../img/bg/bg.jpg);
+  background-size: cover;
+  background-position: center top;
 }
 
 .header-area:before {
-    top: 0px;
-    left: 0px;
-    width: 100%;
-    height: 100%;
-    content: "";
-    position: absolute;
-    background: rgba(0, 0, 0, 0.4);
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  content: "";
+  position: absolute;
+  background: rgba(0, 0, 0, 0.4);
 }
 
 .caption {
-    position: relative;
-    padding-left: 15px;
-    padding-right: 15px;
-    display: table;
-    margin: auto;
-    text-align: center;
-    padding: 15px;
+  position: relative;
+  padding-left: 15px;
+  padding-right: 15px;
+  display: table;
+  margin: auto;
+  text-align: center;
+  padding: 15px;
 }
 
 .caption h1 {
-    font-size: 80px;
-    margin: 0;
-    text-transform: uppercase;
-    line-height: 57px;
-    font-weight: 700;
-    color: #fff;
+  font-size: 80px;
+  margin: 0;
+  text-transform: uppercase;
+  line-height: 57px;
+  font-weight: 700;
+  color: #fff;
 }
 
 .caption p {
-    text-transform: uppercase;
-    font-size: 25px;
-    color: #fff;
-    font-weight: 600;
-    margin: 30px auto;
+  text-transform: uppercase;
+  font-size: 25px;
+  color: #fff;
+  font-weight: 600;
+  margin: 30px auto;
 }
 
 .caption .btn {
-    margin-right: 10px;
+  margin-right: 10px;
 }
-
-
-
 
 /* Typed letter text css
 ---------------------------------------------------------*/
-.typed-cursor{
+.typed-cursor {
+  opacity: 1;
+  -webkit-animation: blink 0.7s infinite;
+  -moz-animation: blink 0.7s infinite;
+  animation: blink 0.7s infinite;
+}
+
+@keyframes blink {
+  0% {
     opacity: 1;
-    -webkit-animation: blink 0.7s infinite;
-    -moz-animation: blink 0.7s infinite;
-    animation: blink 0.7s infinite;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
 
-@keyframes blink{
-    0% { opacity:1; }
-    50% { opacity:0; }
-    100% { opacity:1; }
+@-webkit-keyframes blink {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
 
-@-webkit-keyframes blink{
-    0% { opacity:1; }
-    50% { opacity:0; }
-    100% { opacity:1; }
+@-moz-keyframes blink {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
-
-@-moz-keyframes blink{
-    0% { opacity:1; }
-    50% { opacity:0; }
-    100% { opacity:1; }
-}
-
-
-
 
 /* ----------------------------------------------------------------------------------------
 *                               04. About area css
 * ---------------------------------------------------------------------------------------*/
-
 .about-area {
-    background: #fff;
-    padding-bottom: 0px;
+  background: #fff;
+  padding-bottom: 0px;
 }
 
 .about-text {
-    margin-left: -10px;
+  margin-left: -10px;
 }
 
 .about-text h2 {
-    margin-bottom: 0px;
-    text-transform: uppercase;
-    font-weight: 600;
-    margin-top: 0;
+  margin-bottom: 0px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-top: 0;
 }
-
-
 
 /* ----------------------------------------------------------------------------------------
 
@@ -406,38 +403,178 @@ h3.subtitle {
 *                                   10. Footer area css
 * --------------------------------------------------------------------------------------- */
 .footer-area {
-    background: #333;
-    padding: 50px 0px;
-    color: #fff;
-    font-size: 14px;
-    text-align: center;
+  background: #333;
+  padding: 50px 0px;
+  color: #fff;
+  font-size: 14px;
+  text-align: center;
 }
 
 .social-links {
-    text-align: center;
+  text-align: center;
 }
 
 .social-links li {
-    list-style: none;
-    display: inline-block;
-    margin-right: 10px;
+  list-style: none;
+  display: inline-block;
+  margin-right: 10px;
 }
 
 .social-links li a i {
-    color: #333;
-    background-color: #fff;
-    border: 1px solid #fff;
-    width: 40px;
-    height: 30px;
-    line-height: 30px;
-    text-align: center;
-    transition: 0.3s;
-    -moz-transition: 0.3s;
-    -webkit-transition: 0.3s;
+  color: #333;
+  background-color: #fff;
+  border: 1px solid #fff;
+  width: 40px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  transition: 0.3s;
+  -moz-transition: 0.3s;
+  -webkit-transition: 0.3s;
 }
 
 .social-links li a:hover i {
-    color: #fff;
-    border: 1px solid #fff;
-    background-color: #333;
+  color: #fff;
+  border: 1px solid #fff;
+  background-color: #333;
+}
+
+/* ===================== Sign Up Pages =============== */
+:root {
+  --input-padding-x: 1.5rem;
+  --input-padding-y: .75rem;
+}
+
+.card-signin {
+  border: 0;
+  border-radius: 1rem;
+  box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+}
+
+.card-signin .card-title {
+  margin-bottom: 2rem;
+  font-weight: 500;
+  font-size: 2rem;
+  font-family: 'Helvetica Neue', 'Arial';
+}
+
+.card-signin .card-body {
+  padding: 2rem;
+}
+
+.form-signin {
+  width: 100%;
+}
+
+.form-signin .btn {
+  font-size: 80%;
+  border-radius: 5rem;
+  letter-spacing: .1rem;
+  font-weight: bold;
+  padding: 1rem;
+  transition: all 0.2s;
+}
+
+.form-label-group {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.form-label-group input {
+  height: 40px;
+  border-radius: 2rem;
+}
+
+.form-label-group>input,
+.form-label-group>label {
+  padding: var(--input-padding-y) var(--input-padding-x);
+}
+
+.form-label-group>label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  margin-bottom: 0;
+  /* Override default `<label>` margin */
+  line-height: 1.5;
+  color: #495057;
+  border: 1px solid transparent;
+  border-radius: .25rem;
+  transition: all .1s ease-in-out;
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.form-label-group input::-webkit-input-placeholder {
+  color: transparent;
+}
+
+.form-label-group input:-ms-input-placeholder {
+  color: transparent;
+}
+
+.form-label-group input::-ms-input-placeholder {
+  color: transparent;
+}
+
+.form-label-group input::-moz-placeholder {
+  color: transparent;
+}
+
+.form-label-group input::placeholder {
+  color: transparent;
+}
+
+.form-label-group input:not(:placeholder-shown) {
+  padding-top: calc(var(--input-padding-y) + var(--input-padding-y) * (2 / 3));
+  padding-bottom: calc(var(--input-padding-y) / 3);
+}
+
+.form-label-group input:not(:placeholder-shown)~label {
+  padding-top: calc(var(--input-padding-y) / 3);
+  padding-bottom: calc(var(--input-padding-y) / 3);
+  font-size: 10px;
+  color: #777;
+}
+
+.ui-autocomplete {
+  max-height: 300px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  border-radius: 10px;
+  border: none;
+}
+
+ul.ui-autocomplete li.ui-menu-item {
+  font-family: 'Arial';
+  padding: 5px;
+  border-bottom: 0.5px solid #eee;
+}
+
+checkbox {
+  padding-left: 5%;
+}
+
+.mission {
+  padding: 50px;
+  margin: 0 20px;
+  /* color: #084177; */
+}
+
+.cities {
+  padding: 30px;
+  background: #eee;
+}
+
+.cities .list-group .list-group-item {
+  background: #eee;
+}
+
+@media (min-width:700px) {
+  .mission {
+    font-size: 20px;
+    margin: 0 40px;
+  }
 }
