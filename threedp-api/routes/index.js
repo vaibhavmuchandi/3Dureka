@@ -6,5 +6,6 @@ router.get('/', (req, res) => {
 })
 
 router.use('/printer', require('./printer'))
+router.use('/user', require('./user'))
 
 module.exports = router
