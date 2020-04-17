@@ -3,6 +3,11 @@ const passport = require('passport');
 const router = express.Router();
 const User = require('../models/user');
 
+
+router.get('/log-in', (req, res) => {
+  res.render('login');  
+});
+
 router.get('/sign-up', (req, res) => {
   res.render('user-signup')
 })

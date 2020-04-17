@@ -1,0 +1,23 @@
+.text-dark.mb-0 {
+  font-weight: 500
+}
+
+/* UI autocomplete */
+#inputLocation {
+  width: 530px;
+}
+
+.ui-autocomplete {
+  max-height: 300px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  border-radius: 10px;
+  border: 1px solid black;
+  background: #ffffff !important;
+}
+
+ul.ui-autocomplete li.ui-menu-item {
+  font-family: 'Arial';
+  padding: 5px;
+  border-bottom: 0.5px solid #eee;
+}

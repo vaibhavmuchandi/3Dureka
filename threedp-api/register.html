@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css?h=a8d4bee654e7f373adc6e3ffc7b44ff5">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
-  <link rel="stylesheet" href="/css/styles.min.css">
+  <link rel="stylesheet" href="/css/styles.min.css?h=2cde21d5c8207787afeb66875b7f5c65">
 </head>
 
 <body class="bg-gradient-primary">
@@ -26,10 +26,9 @@
               </div>
               <form class="user" action='/user/sign-up' method="post">
                 <div class="form-group"><input class="form-control form-control-user" type="text" id="inputFirm" placeholder="Name Of Firm" name="name"></div>
-                <div class="form-group"><input class="form-control form-control-user" type="text" id="inputLocation" placeholder="Location" name="name"></div>
                 <div class="form-group"><input class="form-control form-control-user" type="text" id="inputOwner" placeholder="Owner Name" name="owner"></div>
                 <div class="form-group"><input class="form-control form-control-user" type="tel" id="inputContact" placeholder="Contact Number" name="contact"></div>
-                <div class="form-group"><input class="form-control form-control-user" type="email" id="inputEmail" aria-describedby="emailHelp" placeholder="Email" name="email" required></div>
+                <input class="form-control form-control-user" type="email" id="inputEmail" aria-describedby="emailHelp" placeholder="Email" name="email" required>
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0"><input class="form-control form-control-user" type="text" id="inputUsername" placeholder="Username" name="username" required></div>
                   <div class="col-sm-6"><input class="form-control form-control-user" type="password" id="inputPassword" placeholder="Password" name="password"></div>
@@ -51,51 +50,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
   <script src="/js/script.min.js?h=cda46db5f8853791105ff4715b7208f3"></script>
-  <script src="https://rawgit.com/corejavascript/typeahead.js/master/dist/typeahead.bundle.js"></script>
-  <script src="https://rawgit.com/komoot/typeahead-address-photon/master/src/typeahead-address-photon.js"></script>
-
-  <script type="text/javascript">
-    function formatResult(predictions) {
-      let bbox = [68.1113787, 35.6745457, 97.395561, 6.2325274];
-      let name = predictions.properties.name;
-      let city = predictions.properties.city || '';
-      let state = predictions.properties.state || '';
-      let country = predictions.properties.country || '';
-      let lon = predictions.geometry.coordinates[0];
-      let lat = predictions.geometry.coordinates[1];
-      if (lon > bbox[0] && lon < bbox[2] && lat < bbox[1] && lat > bbox[3]) {
-        if (city != '')
-          return `${name}, ${city}, ${state}, ${country}`;
-        else if (state != '')
-          return `${name}, ${state}, ${country}`;
-        else if (country != '')
-          return `${name}, ${country}`;
-        return `${name}`;
-      }
-    }
-
-    var engine = new PhotonAddressEngine({
-      url: 'https://photon.komoot.de/',
-      formatResult: formatResult
-    });
-
-    function setCoordinates(event, selected) {
-      console.log(selected.geometry.coordinates);
-      $('#coordinates').val(selected.geometry.coordinates);
-    }
-
-    $('#inputLocation').typeahead({
-      hint: true,
-      highlight: true
-    }, {
-      source: engine.ttAdapter(),
-      displayKey: 'description'
-    });
-    engine.bindDefaultTypeaheadEvent($('#inputLocation'));
-    $(engine).bind('addresspicker:selected', setCoordinates);
-  </script>
-</body>
-
 </body>
 
 </html>
