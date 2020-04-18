@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 const path = require('path');
 const crypto = require('crypto');
 const multer = require('multer')
@@ -8,7 +9,9 @@ const GridFsStorage = require('multer-gridfs-storage');
 const Grid = require('gridfs-stream');
 const router = express.Router();
 const User = require('../models/user');
-const fabrichelper = require('../FabricHelper')
+//const fabrichelper = require('../FabricHelper')
+
+
 
 //Create storage engine
 const storage = new GridFsStorage({
@@ -87,7 +90,7 @@ router.post('/upload', upload.single('file'), (req, res) => {
     'ownerName' : Ownername,
     'ownerEmail' : Owneremail
   }
-  fabrichelper.registerDesign(req, res, doc)
+  //fabrichelper.registerDesign(req, res, doc)
 
 });
 
