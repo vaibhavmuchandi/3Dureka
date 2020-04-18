@@ -87,7 +87,6 @@ router.post('/upload', upload.single('file'), (req, res) => {
     'ownerName' : Ownername,
     'ownerEmail' : Owneremail
   }
-  console.log(doc)
   fabrichelper.registerDesign(req, res, doc)
 
 });
