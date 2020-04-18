@@ -9,8 +9,6 @@ const Grid = require('gridfs-stream');
 const router = express.Router();
 const User = require('../models/user');
 
-
-
 //Create storage engine
 const storage = new GridFsStorage({
   url: 'mongodb+srv://test:test@cluster0-2czvc.mongodb.net/3d?retryWrites=true&w=majority',
@@ -20,7 +18,7 @@ const storage = new GridFsStorage({
         if (err) {
           return reject(err);
         }
-        const filename = buf.toString('hex') + path.extname(file.originalname);
+        const filename = `${req.body.filename} (${file.originalname}) ` ;
         const fileInfo = {
           filename: filename,
           bucketName: 'uploads'
@@ -33,8 +31,26 @@ const storage = new GridFsStorage({
 const upload = multer({ storage });
 
 
-router.get('/log-in', (req, res) => {
-  res.render('login');
+router.get('/login', (req, res) => {
+    res.render('login')
+});
+
+router.post('/login', (req, res, next) => {
+  passport.authenticate('local', (err, user, info) => {
+    if (err) {
+      return next(err);
+    }
+    if (!user) {
+      return res.redirect('/login');
+    }
+    req.logIn(user, function(err) {
+      if (err) {
+        return next(err);
+      }
+      res.redirect(req.session.returnTo || '/user/dashboard');
+      delete req.session.returnTo;
+    });
+  })(req, res, next);
 });
 
 router.get('/sign-up', (req, res) => {
@@ -58,8 +74,23 @@ router.get('/upload', (req, res) => {
 });
 
 router.post('/upload', upload.single('file'), (req, res) => {
-  res.redirect('/');
+  res.redirect('/user/dashboard');
 });
 
+function checkLoggedIn(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  req.session.returnTo = req.originalUrl;
+  next();
+}
+
+function isLoggedIn(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  req.session.returnTo = req.originalUrl;
+  res.redirect('/login');
+}
 
 module.exports =  router ;

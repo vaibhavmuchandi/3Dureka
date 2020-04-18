@@ -8,7 +8,8 @@ const User = require('./models/user');
 const Printer = require('./models/printer');
 const Grid = require('gridfs-stream');
 const uri = 'mongodb+srv://test:test@cluster0-2czvc.mongodb.net/3d?retryWrites=true&w=majority';
-const conn = mongoose.createConnection(uri, {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true});
+let db = mongoose.connection;
 let app = express();
 
 app.set('view engine', 'ejs')
@@ -18,8 +19,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride('_method'));
 
 let gfs;
-conn.once('open', () => {
-  gfs = Grid(conn.db, mongoose.mongo);
+db.once('open', () => {
+  gfs = Grid(db, mongoose.mongo);
   gfs.collection('uploads')
 });
 
@@ -33,24 +34,22 @@ app.use(passport.session());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 passport.use(new LocalStrategy(User.authenticate()));
-passport.serializeUser(Printer.serializeUser());
-passport.deserializeUser(Printer.deserializeUser());
-passport.use(new LocalStrategy(Printer.authenticate()));
+// passport.serializeUser(Printer.serializeUser());
+// passport.deserializeUser(Printer.deserializeUser());
+// passport.use(new LocalStrategy(Printer.authenticate()));
 
 const routes = require('./routes/index')
 
 app.use('/', routes);
 
-app.get('/user/files', (req, res) => {
-    gfs.files.find().toArray((err, files)=>{
-        //check if file exist
+app.get('/user/dashboard', (req, res) => {
+    gfs.files.find({}, 'filename uploadDate').sort({uploadDate: 1})
+    .toArray((err, files)=>{
         if(!files || files.length === 0) {
-            return res.status(404).json({
-                err: 'No files exist'
-            });
-
+            res.render('user-dashboard', {uploads: null})
+        } else {
+            res.render('user-dashboard', {uploads: files})
         }
-        return res.json(files);
     });
 })
 

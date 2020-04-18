@@ -3,6 +3,28 @@ const passport = require('passport');
 const router = express.Router();
 const Printer = require('../models/printer');
 
+router.get('/login', (req, res) => {
+    res.render('login')
+});
+
+router.post('/login', (req, res, next) => {
+  passport.authenticate('local', (err, user, info) => {
+    if (err) {
+      return next(err);
+    }
+    if (!user) {
+      return res.redirect('/login');
+    }
+    req.logIn(user, function(err) {
+      if (err) {
+        return next(err);
+      }
+      res.redirect(req.session.returnTo || '/printer/dashboard');
+      delete req.session.returnTo;
+    });
+  })(req, res, next);
+});
+
 router.get('/sign-up', (req, res) => {
   res.render('printer-signup')
 })
@@ -18,5 +40,21 @@ router.post('/sign-up', (req, res) => {
         }
    });
 });
+
+function checkLoggedIn(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  req.session.returnTo = req.originalUrl;
+  next();
+}
+
+function isLoggedIn(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  req.session.returnTo = req.originalUrl;
+  res.redirect('/login');
+}
 
 module.exports = router;
