@@ -6,7 +6,7 @@ const Printer = require('../models/printer');
 const User = require('../models/user');
 
 router.get('/login', (req, res) => {
-    res.render('loginprinter')
+    res.render('printer-login')
 });
 
 router.post('/login', (req, res, next) => {
@@ -50,15 +50,6 @@ router.get('/print/options', (req, res) => {
 router.post('/print/options', (req, res) => {
   res.render('itemsprocured')
 })
-
-
-function checkLoggedIn(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  req.session.returnTo = req.originalUrl;
-  next();
-}
 
 router.get('/dashboard',function(req,res){
   res.render('pendingorders');
