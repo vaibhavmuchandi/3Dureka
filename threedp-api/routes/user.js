@@ -71,11 +71,11 @@ router.post('/sign-up', (req, res) => {
 })
 
 router.post('/upload', upload.single('file'), (req, res) => {
+  let Designid = makeid(16)
   User.collection.findOneAndUpdate(
     {username: req.user.username},
-    {$push: {uploads: res.req.file.id}}
+    {$push: {uploads: res.req.file.id, designid: Designid}}
   )
-  let Designid = makeid(16)
   let Dbid = res.req.file.id
   let Ownerid = req.user._id
   let Ownername = req.user.name
@@ -90,6 +90,10 @@ router.post('/upload', upload.single('file'), (req, res) => {
   fabrichelper.registerDesign(req, res, doc)
 
 });
+
+router.post('/place-order', (req, res) => {
+
+})
 
 function checkLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {

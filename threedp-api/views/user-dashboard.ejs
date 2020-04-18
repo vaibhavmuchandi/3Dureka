@@ -218,7 +218,12 @@
                 <li class="list-group-item">
                   <div class="row align-items-center no-gutters">
                     <div class="col mr-2">
-                      <h6 class="mb-0"><strong><%=uploads[i].filename%></strong></h6><span class="text-xs"><%=uploads[i].uploadDate%></span>
+                      <h5 class="mb-0"><strong><%=uploads[i].filename%></strong></h5><h6 class="mb-0"><strong>Unique id: </strong><%=designid[i]%></h6><span class="text-xs"><%=uploads[i].uploadDate%></span>
+                      <form action="/place-order" method="POST">
+                        <input type="text" value="<%=designid[i]%>" name="designid" hidden>
+                        <input type="text" value="<%=user._id%>" name="userid" hidden>
+                        <button class="btn btn-danger btn-block">Place Order</button>
+                      </form>
                     </div>
                   </div>
                 </li>
