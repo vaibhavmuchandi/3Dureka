@@ -34,7 +34,7 @@ const upload = multer({ storage });
 
 
 router.get('/login', (req, res) => {
-    res.render('login')
+    res.render('user-login')
 });
 
 router.post('/login', (req, res, next) => {
@@ -111,7 +111,7 @@ router.post('/place-order/success', (req, res)=> {
   let designId = req.body.designid;
   let userId = req.body.userid;
   let address1 = req.body.address1;
-  let coordinates = req.body.coordinates;
+  let coordinates = req.body.coordinates.split(',');
   let address2 = req.body.address2;
   let quantity = req.body.quantity;
   let doc = {
@@ -120,13 +120,14 @@ router.post('/place-order/success', (req, res)=> {
     'userID' : userId,
     'quantity' : quantity
   }
-  User.find({flag: 'printer'}, '-id coordinates', (err, printers) => {
-    console.log(coods);
+  User.find({flag: 'printer'}, 'coordinates location', (err, printers) => {
+    console.log(printers);
     let distance = []
     for(let i in printers) {
-      distance.push(calcDist(coordinates, printers.coordinates[i]))
+      distance.push(calcDist(coordinates, printers[i].coordinates))
     }
-    res.send(Math.min(...distance));
+    min = Math.min(...distance);
+    res.send(printers[distance.indexOf(min)])
   })
 });
 
@@ -154,7 +155,7 @@ function isLoggedIn(req, res, next) {
     return next();
   }
   req.session.returnTo = req.originalUrl;
-  res.redirect('/user/login');
+  res.redirect('/user/luser-login');
 }
 
 function makeid(length) {

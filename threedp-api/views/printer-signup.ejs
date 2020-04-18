@@ -24,11 +24,11 @@
               <div class="text-center">
                 <h4 class="text-dark mb-4">Create an Account!</h4>
               </div>
-              <form class="user" action='/user/sign-up' method="post">
+              <form class="user" action='/printer/sign-up' method="post">
                 <input type="text" name="type" value="printer" hidden>
                 <div class="form-group"><input class="form-control form-control-user" type="text" id="inputFirm" placeholder="Name Of Firm" name="name"></div>
                 <div class="form-group"><input class="form-control form-control-user" type="text" id="inputLocation" placeholder="Location" name="location"></div>
-                <input type="text" name="coordinates" hidden>
+                <input type="text" id="coordinates" name="coordinates" hidden>
                 <div class="form-group"><input class="form-control form-control-user" type="text" id="inputOwner" placeholder="Owner Name" name="owner"></div>
                 <div class="form-group"><input class="form-control form-control-user" type="tel" id="inputContact" placeholder="Contact Number" name="contact"></div>
                 <div class="form-group"><input class="form-control form-control-user" type="email" id="inputEmail" aria-describedby="emailHelp" placeholder="Email" name="email" required></div>
