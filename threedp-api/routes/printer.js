@@ -6,7 +6,7 @@ const Printer = require('../models/printer');
 const User = require('../models/user');
 
 router.get('/login', (req, res) => {
-    res.render('login')
+    res.render('loginprinter')
 });
 
 router.post('/login', (req, res, next) => {
@@ -42,6 +42,14 @@ router.post('/sign-up', (req, res) => {
         }
    });
 });
+
+router.get('/print/options', (req, res) => {
+  res.render('itemsprocured')
+})
+
+router.post('/print/options', (req, res) => {
+  res.render('itemsprocured')
+})
 
 
 function checkLoggedIn(req, res, next) {
