@@ -55,7 +55,7 @@ h4,
 h5,
 h6 {
   font-weight: 400;
-  font-family: 'Helvetica Neue', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 p {
@@ -107,10 +107,10 @@ fieldset {
 
 .btn, input[type='submit'] {
   display: inline-block;
-  background: #fff;
+  /* background: #fff; */
   padding: 10px 25px;
-  border: 2px solid #27ae60;
-  background-color: #27ae60;
+  /* border: 2px solid #27ae60; */
+  background-color: #b42130;
   color: #fff;
   text-transform: uppercase;
   font-weight: 600;
@@ -122,18 +122,8 @@ fieldset {
 }
 
 .btn:hover, input[type='submit']:hover {
-  background-color: #fff;
-  color: #27ae60;
-}
-
-.btn-white {
-  background-color: #fff;
-  color: #27ae60;
-}
-
-.btn-white:hover {
-  background-color: #27ae60;
-  color: #fff;
+  background-color: #c63b3e;
+  color: #FFF;
 }
 
 .section {
@@ -171,6 +161,41 @@ fieldset {
 
 .section-title p {
   margin-top: 25px;
+}
+
+/* black background */
+.section-titlew {
+  margin: auto;
+  max-width: 800px;
+  margin-bottom: 60px;
+}
+
+.section-titlew h2 {
+  font-size: 30px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 25px;
+  line-height: 35px;
+  position: relative;
+  margin-top: 0;
+  padding-bottom: 20px;
+  text-transform: uppercase;
+}
+
+.section-titlew h2:before {
+  content: '';
+  position: absolute;
+  width: 80px;
+  height: 2px;
+  margin-left: -40px;
+  left: 50%;
+  bottom: 0px;
+  background-color: #fff;
+}
+
+.section-titlew p {
+  margin-top: 25px;
+  color: white;
 }
 
 h3.subtitle {
@@ -213,7 +238,7 @@ h3.subtitle {
 *                               02. Navigation area css
 * --------------------------------------------------------------------------------------- */
 .sticky-menu {
-  background: #27ae60;
+  background: #b42130;
   transition: all 0.3s ease-out;
   -webkit-transition: all 0.3s ease-out;
 }
@@ -263,7 +288,7 @@ h3.subtitle {
 .nav>li>a:active,
 .nav>li>a:focus {
   background: none;
-  color: #bbb;
+  color: #fff;
 }
 
 .mainmenu .navbar-nav li.active a {
@@ -395,9 +420,274 @@ h3.subtitle {
 }
 
 /* ----------------------------------------------------------------------------------------
+*                                   06. Service area css
+* --------------------------------------------------------------------------------------- */
+.service-area {
+  background: #070506;
+  padding-bottom: 30px;
+}
 
+.single-service {
+  margin-bottom: 40px;
+  padding: 0px 0px;
+  background: #fff;
+  overflow: hidden;
+}
 
+.single-service i.fa {
+  font-size: 30px;
+  float: left;
+  border-right: 1px dashed #bbb;
+  width: 70px;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  color: #c4011c;
+}
 
+.single-service .ser-con {
+  padding: 20px;
+  border-top: 1px dashed #bbb;
+  clear: both;
+  float: none;
+}
+
+.single-service h4 {
+  position: relative;
+  color: #c4011c;
+  text-transform: uppercase;
+  padding-bottom: 0;
+  margin-left: 20px;
+  line-height: 40px;
+  float: left;
+  font-weight: 600;
+}
+
+.single-service h4:before {
+  content: '';
+  position: absolute;
+  background-color: #333;
+  width: 50px;
+  height: 0px;
+  bottom: 0;
+  left: 0;
+}
+
+/* ----------------------------------------------------------------------------------------
+*                               07. Portfolio/work area css
+* --------------------------------------------------------------------------------------- */
+.portfolio .mix {
+  display: none;
+}
+
+.filters {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-align: center;
+}
+
+.filters li {
+  display: inline-block;
+  margin: 0px 5px;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 16px;
+  font-family: 'Roboto', Helvetica, Arial, sans-serif;
+  border: 2px solid #000;
+  line-height: 30px;
+  padding: 0 20px;
+  color: #000;
+}
+
+.filters li.active,
+.filters li:hover {
+  background: #c4011c;
+  color: #fff;
+}
+
+.work-items .item {
+  margin-top: 30px;
+  position: relative;
+  overflow: hidden;
+}
+
+.work-items .item img {
+  width: 100%;
+  width: 100%;
+  transition: 0.8s ease-out;
+}
+
+.work-items .overlay {
+  background-color: rgba(255, 255, 255, 0.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  text-align: center;
+  transition: 0.3s cubic-bezier(0.4, 0, 1, 1);
+  -ms-transition: 0.3s cubic-bezier(0.4, 0, 1, 1);
+  -moz-transition: 0.3s cubic-bezier(0.4, 0, 1, 1);
+  -webkit-transition: 0.3s cubic-bezier(0.4, 0, 1, 1);
+}
+
+.work-items .item:hover .overlay {
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.work-items .item:hover img {
+  transform: scale(1.2);
+  -ms-transform: scale(1.2);
+  -moz-transform: scale(1.2);
+  -webkit-transform: scale(1.2);
+}
+
+.work-items .overlay i.fa {
+  font-size: 35px;
+  color: #27ae60;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -18px;
+  transform: scale(0);
+  transition: 0.4s cubic-bezier(0.4, 0, 1, 1);
+}
+
+.work-items .item:hover .overlay i.fa {
+  transform: scale(1);
+}
+
+/* ----------------------------------------------------------------------------------------
+*                                   09. Contact area css
+* --------------------------------------------------------------------------------------- */
+.contact-area .container {
+  max-width: 900px;
+}
+
+.contact-info {
+  text-align: right;
+  border-bottom: 1px dashed #999;
+  clear: both;
+}
+
+.contact-info i.fa {
+  font-size: 25px;
+  display: inline-block;
+  float: right;
+  overflow: hidden;
+  width: 60px;
+  text-align: center;
+  line-height: 60px;
+  color: red;
+  border-left: 1px dashed #999;
+  margin-left: 20px;
+}
+
+.contact-info.border-none {
+  border: none;
+}
+
+.contact-info a {
+  color: inherit;
+}
+
+.contact-info p {
+  margin: 20px 0;
+  line-height: 27px;
+  min-height: 60px;
+}
+
+.contact-form {
+  background-color: #ffffff;
+  border-radius: 3px;
+}
+
+.form-control {
+  display: block;
+  border: 0px;
+  width: 100%;
+  height: 60px;
+  padding: 5px 0px;
+  font-size: 16px;
+  color: #000;
+  background-image: none;
+  border-radius: 0px;
+  box-shadow: none;
+  padding-left: 80px;
+  padding: 0;
+  margin: 20px 0;
+  padding-left: 80px;
+}
+
+.form-control:focus {
+  border-color: #000;
+  outline: 0;
+  box-shadow: none;
+}
+
+.contact-form .form-group {
+  position: relative;
+  border-bottom: 1px dashed #999;
+}
+
+.contact-form .form-group.in_message {
+  border-bottom: 0;
+}
+
+.contact-form .form-group:before {
+  position: absolute;
+  height: 60px;
+  font-family: FontAwesome;
+  top: 0;
+  left: 0;
+  width: 60px;
+  text-align: center;
+  line-height: 60px;
+  color: red;
+  border-right: 1px dashed #999;
+  font-size: 25px;
+}
+
+.in_name:before {
+  content: '\f007';
+}
+
+.in_email:before {
+  content: '\f1d8';
+}
+
+.in_subject:before {
+  content: '\f0c6';
+}
+
+.in_message:before {
+  content: '\f0e0';
+}
+
+.contact-form textarea#message {
+  padding-top: 10px;
+  height: 115px;
+}
+
+.success {
+  background: #fff none repeat scroll 0 0;
+  color: #50B948;
+  font-weight: 700;
+  padding: 20px;
+  text-align: center;
+}
+
+.error {
+  background: #fff none repeat scroll 0 0;
+  color: #ff0000;
+  font-weight: 700;
+  padding: 20px;
+  text-align: center;
+}
 
 /* ----------------------------------------------------------------------------------------
 *                                   10. Footer area css
@@ -437,144 +727,4 @@ h3.subtitle {
   color: #fff;
   border: 1px solid #fff;
   background-color: #333;
-}
-
-/* ===================== Sign Up Pages =============== */
-:root {
-  --input-padding-x: 1.5rem;
-  --input-padding-y: .75rem;
-}
-
-.card-signin {
-  border: 0;
-  border-radius: 1rem;
-  box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
-}
-
-.card-signin .card-title {
-  margin-bottom: 2rem;
-  font-weight: 500;
-  font-size: 2rem;
-  font-family: 'Helvetica Neue', 'Arial';
-}
-
-.card-signin .card-body {
-  padding: 2rem;
-}
-
-.form-signin {
-  width: 100%;
-}
-
-.form-signin .btn {
-  font-size: 80%;
-  border-radius: 5rem;
-  letter-spacing: .1rem;
-  font-weight: bold;
-  padding: 1rem;
-  transition: all 0.2s;
-}
-
-.form-label-group {
-  position: relative;
-  margin-bottom: 1rem;
-}
-
-.form-label-group input {
-  height: 40px;
-  border-radius: 2rem;
-}
-
-.form-label-group>input,
-.form-label-group>label {
-  padding: var(--input-padding-y) var(--input-padding-x);
-}
-
-.form-label-group>label {
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: block;
-  width: 100%;
-  margin-bottom: 0;
-  /* Override default `<label>` margin */
-  line-height: 1.5;
-  color: #495057;
-  border: 1px solid transparent;
-  border-radius: .25rem;
-  transition: all .1s ease-in-out;
-  font-size: 15px;
-  font-weight: 400;
-}
-
-.form-label-group input::-webkit-input-placeholder {
-  color: transparent;
-}
-
-.form-label-group input:-ms-input-placeholder {
-  color: transparent;
-}
-
-.form-label-group input::-ms-input-placeholder {
-  color: transparent;
-}
-
-.form-label-group input::-moz-placeholder {
-  color: transparent;
-}
-
-.form-label-group input::placeholder {
-  color: transparent;
-}
-
-.form-label-group input:not(:placeholder-shown) {
-  padding-top: calc(var(--input-padding-y) + var(--input-padding-y) * (2 / 3));
-  padding-bottom: calc(var(--input-padding-y) / 3);
-}
-
-.form-label-group input:not(:placeholder-shown)~label {
-  padding-top: calc(var(--input-padding-y) / 3);
-  padding-bottom: calc(var(--input-padding-y) / 3);
-  font-size: 10px;
-  color: #777;
-}
-
-.ui-autocomplete {
-  max-height: 300px;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  border-radius: 10px;
-  border: none;
-}
-
-ul.ui-autocomplete li.ui-menu-item {
-  font-family: 'Arial';
-  padding: 5px;
-  border-bottom: 0.5px solid #eee;
-}
-
-checkbox {
-  padding-left: 5%;
-}
-
-.mission {
-  padding: 50px;
-  margin: 0 20px;
-  /* color: #084177; */
-}
-
-.cities {
-  padding: 30px;
-  background: #eee;
-}
-
-.cities .list-group .list-group-item {
-  background: #eee;
-}
-
-@media (min-width:700px) {
-  .mission {
-    font-size: 20px;
-    margin: 0 40px;
-  }
 }
