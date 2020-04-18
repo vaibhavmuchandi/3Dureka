@@ -9,7 +9,9 @@ let userSchema = new mongoose.Schema({
   coordinates: [Number],
   email: String,
   contact: String,
-  uploads: [{type: mongoose.Schema.Types.ObjectId, ref: 'uploads'}]
+  uploads: [{type: mongoose.Schema.Types.ObjectId, ref: 'uploads'}],
+  designid: [String],
+  flag: String
 })
 
 userSchema.plugin(passportLocalMongoose);

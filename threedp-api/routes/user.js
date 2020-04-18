@@ -43,7 +43,7 @@ router.post('/login', (req, res, next) => {
       return next(err);
     }
     if (!user) {
-      return res.redirect('/login');
+      return res.redirect('/user/login');
     }
     req.logIn(user, function(err) {
       if (err) {
@@ -60,23 +60,23 @@ router.get('/sign-up', (req, res) => {
 })
 
 router.post('/sign-up', (req, res) => {
-  User.register(new User({ username: req.body.username, email: req.body.email, name: req.body.name, contact: req.body.contact }), req.body.password, function(err, user) {
+  User.register(new User({ username: req.body.username, email: req.body.email, name: req.body.name, contact: req.body.contact, flag: req.body.type }), req.body.password, function(err, user) {
         if (err) {
             console.log(err);
         } else {
             passport.authenticate('local')(req, res, function() {
-                res.redirect('/');
+                res.redirect('/user/login');
             })
         }
    });
 })
 
 router.post('/upload', upload.single('file'), (req, res) => {
+  let Designid = makeid(16)
   User.collection.findOneAndUpdate(
     {username: req.user.username},
-    {$push: {uploads: res.req.file.id}}
+    {$push: {uploads: res.req.file.id, designid: Designid}}
   )
-  let Designid = makeid(16)
   let Dbid = res.req.file.id
   let Ownerid = req.user._id
   let Ownername = req.user.name
@@ -92,7 +92,33 @@ router.post('/upload', upload.single('file'), (req, res) => {
 });
 
 router.get('/dashboard/order-details', isLoggedIn, (req, res) => {
-  res.render('orderdetails')
+  res.render('orderdetails', {details: {}})
+});
+
+router.post('/place-order/add-details', (req, res) => {
+  designId = req.body.designid;
+  userId = req.user._id
+  details = {
+    'designid' : designId,
+    'userid' : userId
+  }
+  res.render('orderdetails', {details: details})
+})
+
+router.post('/place-order/success', (req, res)=> {
+  let orderid = makeid(4)
+  let designId = req.body.designid;
+  let userId = req.body.userid;
+  let address1 = req.body.address1;
+  let address2 = req.body.address2;
+  let quantity = req.body.quantity;
+  let doc = {
+    'orderID' : orderid,
+    'designID' : designId,
+    'userID' : userId,
+    'quantity' : quantity
+  }
+  res.send(doc)
 })
 
 function checkLoggedIn(req, res, next) {
@@ -108,7 +134,7 @@ function isLoggedIn(req, res, next) {
     return next();
   }
   req.session.returnTo = req.originalUrl;
-  res.redirect('/login');
+  res.redirect('/user/login');
 }
 
 function makeid(length) {

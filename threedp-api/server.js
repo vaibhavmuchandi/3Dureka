@@ -51,15 +51,14 @@ app.use(function(req, res, next){
 });
 
 app.get('/user/dashboard', isLoggedIn, (req, res) => {
-  User.findOne({username: req.user.username}, '-_id uploads',
+  User.findOne({username: req.user.username}, '-_id uploads designid',
   (err, user) => {
-    console.log(user);
     if(user.uploads.length==0)
-      res.render('user-dashboard', {uploads: []})
+      res.render('user-dashboard', {uploads: [], designid: []})
     else
       gfs.files.find({_id: {$in: user.uploads}}, 'filename uploadDate').sort({uploadDate: -1})
       .toArray((err, files)=>{
-              res.render('user-dashboard', {uploads: files});
+              res.render('user-dashboard', {uploads: files, designid: user.designid});
       });
     })
 });
