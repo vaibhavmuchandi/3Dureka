@@ -31,12 +31,10 @@ app.use(require('express-session')({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+//Authentication
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 passport.use(new LocalStrategy(User.authenticate()));
-// passport.serializeUser(Printer.serializeUser());
-// passport.deserializeUser(Printer.deserializeUser());
-// passport.use(new LocalStrategy(Printer.authenticate()));
 
 app.use((req, res, next) => {
   res.locals.user = req.user;
@@ -55,8 +53,12 @@ app.use(function(req, res, next){
 app.get('/user/dashboard', isLoggedIn, (req, res) => {
   User.findOne({username: req.user.username}, '-_id uploads designid',
   (err, user) => {
+<<<<<<< HEAD
     console.log(user.uploads);
     console.log(user.designid)
+=======
+    console.log(user);
+>>>>>>> 16d416d2fae12a6b3b684f5da78d02788492784f
     if(user.uploads.length==0)
       res.render('user-dashboard', {uploads: [], designid: []})
     else
