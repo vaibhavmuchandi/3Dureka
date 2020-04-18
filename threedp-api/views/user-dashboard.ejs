@@ -150,7 +150,7 @@
                   <div class="row align-items-center no-gutters">
                     <div class="col mr-2">
                       <div class="text-uppercase text-danger font-weight-bold text-xs mb-1"><span>Designs Uploaded</span></div>
-                      <div class="text-dark font-weight-bold h5 mb-0"><span>0</span></div>
+                      <div class="text-dark font-weight-bold h5 mb-0"><span><%=uploads.length || 0%></span></div>
                     </div>
                     <div class="col-auto"><i class="fas fa-paint-brush fa-2x text-gray-300"></i></div>
                   </div>
@@ -210,7 +210,7 @@
                 <div class="card-header py-3">
                   <h6 class="text-danger font-weight-bold m-0">My Uploads</h6>
                 </div>
-                <%if (!uploads) {%>
+                <%if (uploads.length==0) {%>
                 <h6 class="mb-0 text-center" style="padding:40px;">You haven't uploaded any of your amazing designs yet!</h6>
                 <%}%>
                 <ul class="list-group list-group-flush">

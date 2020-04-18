@@ -8,7 +8,7 @@ const User = require('./models/user');
 const Printer = require('./models/printer');
 const Grid = require('gridfs-stream');
 const uri = 'mongodb+srv://test:test@cluster0-2czvc.mongodb.net/3d?retryWrites=true&w=majority';
-mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(uri, {useUnifiedTopology: true, useNewUrlParser: true});
 let db = mongoose.connection;
 let app = express();
 
@@ -42,16 +42,26 @@ const routes = require('./routes/index')
 
 app.use('/', routes);
 
-app.get('/user/dashboard', (req, res) => {
-    gfs.files.find({}, 'filename uploadDate').sort({uploadDate: 1})
-    .toArray((err, files)=>{
-        if(!files || files.length === 0) {
-            res.render('user-dashboard', {uploads: null})
-        } else {
-            res.render('user-dashboard', {uploads: files})
-        }
-    });
-})
+app.get('/user/dashboard', isLoggedIn, (req, res) => {
+  User.findOne({username: req.user.username}, '-_id uploads',
+  (err, user) => {
+    if(user.uploads.length==0)
+      res.render('user-dashboard', {uploads: []})
+    else
+      gfs.files.find({filename: {$in: user.uploads}}, 'filename uploadDate').sort({uploadDate: -1})
+      .toArray((err, files)=>{
+              res.render('user-dashboard', {uploads: files});
+      });
+    })
+});
+
+function isLoggedIn(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  req.session.returnTo = req.originalUrl;
+  res.redirect('/user/login');
+}
 
 
 app.listen(3000, () => {

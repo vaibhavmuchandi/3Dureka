@@ -18,11 +18,15 @@ const storage = new GridFsStorage({
         if (err) {
           return reject(err);
         }
-        const filename = `${req.body.filename} (${file.originalname}) ` ;
+        const filename = `${req.body.filename} (${file.originalname})` ;
         const fileInfo = {
           filename: filename,
           bucketName: 'uploads'
         };
+        User.collection.findOneAndUpdate(
+          {username: req.user.username},
+          {$push: {uploads: `${req.body.filename} (${file.originalname})`}}
+        )
         resolve(fileInfo);
       });
     });
@@ -68,10 +72,6 @@ router.post('/sign-up', (req, res) => {
         }
    });
 })
-
-router.get('/upload', (req, res) => {
-    res.render('upload')
-});
 
 router.post('/upload', upload.single('file'), (req, res) => {
   res.redirect('/user/dashboard');
