@@ -3,7 +3,6 @@ const passportLocalMongoose = require('passport-local-mongoose');
 
 let printerSchema = new mongoose.Schema({
   username: String,
-  password: String,
   name: String,
   owner: String,
   contact: String,

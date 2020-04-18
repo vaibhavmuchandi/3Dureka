@@ -35,22 +35,6 @@ app.use(passport.session());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 passport.use(new LocalStrategy(User.authenticate()));
-// passport.serializeUser(Printer.serializeUser());
-// passport.deserializeUser(Printer.deserializeUser());
-// passport.use('printer', new LocalStrategy(
-//   function(username, password, done) {
-//    Printer.findOne({ username: username }, function (err, user) {
-//      if (err) { return done(err); }
-//      if (!user) {
-//        return done(null, false, { message: 'Incorrect username.' });
-//      }
-//      if (!user.validPassword(password)) {
-//        return done(null, false, { message: 'Incorrect password.' });
-//      }
-//      return done(null, user);
-//    });
-//  }
-// ));
 
 app.use((req, res, next) => {
   res.locals.user = req.user;

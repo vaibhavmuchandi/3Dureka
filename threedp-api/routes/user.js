@@ -9,7 +9,7 @@ const GridFsStorage = require('multer-gridfs-storage');
 const Grid = require('gridfs-stream');
 const router = express.Router();
 const User = require('../models/user');
-const fabrichelper = require('../FabricHelper')
+//const fabrichelper = require('../FabricHelper')
 
 
 
@@ -90,7 +90,7 @@ router.post('/upload', upload.single('file'), (req, res) => {
     'ownerName' : Ownername,
     'ownerEmail' : Owneremail
   }
-  fabrichelper.registerDesign(req, res, doc)
+  //fabrichelper.registerDesign(req, res, doc)
 
 });
 

@@ -3,14 +3,14 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const router = express.Router();
 const Printer = require('../models/printer');
-
+const User = require('../models/user');
 
 router.get('/login', (req, res) => {
     res.render('login')
 });
 
 router.post('/login', (req, res, next) => {
-  passport.authenticate('printer', (err, user, info) => {
+  passport.authenticate('local', (err, user, info) => {
     if (err) {
       return next(err);
     }
@@ -32,7 +32,7 @@ router.get('/sign-up', (req, res) => {
 })
 
 router.post('/sign-up', (req, res) => {
-  Printer.register(new Printer({ username: req.body.username, email: req.body.email, name: req.body.name, owner: req.body.owner, contact: req.body.contact, location: req.body.location, coordinates: req.body.coordinates.split(',') }), req.body.password, function(err, user) {
+  User.register(new User({ username: req.body.username, email: req.body.email, name: req.body.name, owner: req.body.owner, contact: req.body.contact, location: req.body.location, coordinates: req.body.coordinates.split(',') }), req.body.password, function(err, user) {
         if (err) {
             console.log(err);
         } else {
@@ -52,6 +52,19 @@ function checkLoggedIn(req, res, next) {
   next();
 }
 
+router.get('/dashboard',function(req,res){
+  res.render('pendingorders');
+});
+
+router.get('/dashboard/print-history',function(req,res){
+  res.render('printhistory');
+});
+
+router.get('/dashboard/order-details',function(req,res){
+  res.render('itemsprocured');
+});
+
+
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
@@ -59,15 +72,6 @@ function isLoggedIn(req, res, next) {
   req.session.returnTo = req.originalUrl;
   res.redirect('/printer/login');
 }
-router.get("/dashboard/pending-orders",function(req,res){
-  res.render("pendingorders");
-});
-router.get("/dashboard/print-history",function(req,res){
-  res.render("printhistory");
-});
-router.get("/dashboard/order-details",function(req,res){
-  res.render("itemsprocured");
-});
 
 
 module.exports = router;
