@@ -11,8 +11,6 @@ const router = express.Router();
 const User = require('../models/user');
 //const fabrichelper = require('../FabricHelper')
 
-
-
 //Create storage engine
 const storage = new GridFsStorage({
   url: 'mongodb+srv://test:test@cluster0-2czvc.mongodb.net/3d?retryWrites=true&w=majority',
@@ -91,8 +89,11 @@ router.post('/upload', upload.single('file'), (req, res) => {
     'ownerEmail' : Owneremail
   }
   //fabrichelper.registerDesign(req, res, doc)
-
 });
+
+router.get('/dashboard/order-details', isLoggedIn, (req, res) => {
+  res.render('orderdetails')
+})
 
 function checkLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {
@@ -109,6 +110,7 @@ function isLoggedIn(req, res, next) {
   req.session.returnTo = req.originalUrl;
   res.redirect('/login');
 }
+
 function makeid(length) {
   var result           = '';
   var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
