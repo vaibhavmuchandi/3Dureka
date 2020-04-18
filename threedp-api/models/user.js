@@ -6,7 +6,7 @@ let userSchema = new mongoose.Schema({
   name: String,
   email: String,
   contact: String,
-  uploads: [mongoose.Schema.Types.ObjectId]
+  uploads: [{type: mongoose.Schema.Types.ObjectId, ref: 'uploads'}]
 })
 
 userSchema.plugin(passportLocalMongoose);

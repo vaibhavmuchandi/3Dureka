@@ -1,14 +1,16 @@
 const express = require('express');
 const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 const router = express.Router();
 const Printer = require('../models/printer');
+
 
 router.get('/login', (req, res) => {
     res.render('login')
 });
 
 router.post('/login', (req, res, next) => {
-  passport.authenticate('local', (err, user, info) => {
+  passport.authenticate('printer', (err, user, info) => {
     if (err) {
       return next(err);
     }
@@ -41,6 +43,7 @@ router.post('/sign-up', (req, res) => {
    });
 });
 
+
 function checkLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
@@ -54,7 +57,7 @@ function isLoggedIn(req, res, next) {
     return next();
   }
   req.session.returnTo = req.originalUrl;
-  res.redirect('/login');
+  res.redirect('/printer/login');
 }
 
 module.exports = router;

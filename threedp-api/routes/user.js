@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 const path = require('path');
 const crypto = require('crypto');
 const multer = require('multer')
@@ -8,6 +9,8 @@ const GridFsStorage = require('multer-gridfs-storage');
 const Grid = require('gridfs-stream');
 const router = express.Router();
 const User = require('../models/user');
+
+
 
 //Create storage engine
 const storage = new GridFsStorage({

@@ -31,12 +31,26 @@ app.use(require('express-session')({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+//Authentication
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 passport.use(new LocalStrategy(User.authenticate()));
 // passport.serializeUser(Printer.serializeUser());
 // passport.deserializeUser(Printer.deserializeUser());
-// passport.use(new LocalStrategy(Printer.authenticate()));
+// passport.use('printer', new LocalStrategy(
+//   function(username, password, done) {
+//    Printer.findOne({ username: username }, function (err, user) {
+//      if (err) { return done(err); }
+//      if (!user) {
+//        return done(null, false, { message: 'Incorrect username.' });
+//      }
+//      if (!user.validPassword(password)) {
+//        return done(null, false, { message: 'Incorrect password.' });
+//      }
+//      return done(null, user);
+//    });
+//  }
+// ));
 
 app.use((req, res, next) => {
   res.locals.user = req.user;
@@ -50,7 +64,7 @@ app.use('/', routes);
 app.get('/user/dashboard', isLoggedIn, (req, res) => {
   User.findOne({username: req.user.username}, '-_id uploads',
   (err, user) => {
-    console.log(user.uploads);
+    console.log(user);
     if(user.uploads.length==0)
       res.render('user-dashboard', {uploads: []})
     else
