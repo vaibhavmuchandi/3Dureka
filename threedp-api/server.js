@@ -38,6 +38,11 @@ passport.use(new LocalStrategy(User.authenticate()));
 // passport.deserializeUser(Printer.deserializeUser());
 // passport.use(new LocalStrategy(Printer.authenticate()));
 
+app.use((req, res, next) => {
+  res.locals.user = req.user;
+  next();
+})
+
 const routes = require('./routes/index')
 
 app.use('/', routes);
@@ -45,10 +50,11 @@ app.use('/', routes);
 app.get('/user/dashboard', isLoggedIn, (req, res) => {
   User.findOne({username: req.user.username}, '-_id uploads',
   (err, user) => {
+    console.log(user.uploads);
     if(user.uploads.length==0)
       res.render('user-dashboard', {uploads: []})
     else
-      gfs.files.find({filename: {$in: user.uploads}}, 'filename uploadDate').sort({uploadDate: -1})
+      gfs.files.find({_id: {$in: user.uploads}}, 'filename uploadDate').sort({uploadDate: -1})
       .toArray((err, files)=>{
               res.render('user-dashboard', {uploads: files});
       });

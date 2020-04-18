@@ -23,10 +23,6 @@ const storage = new GridFsStorage({
           filename: filename,
           bucketName: 'uploads'
         };
-        User.collection.findOneAndUpdate(
-          {username: req.user.username},
-          {$push: {uploads: `${req.body.filename} (${file.originalname})`}}
-        )
         resolve(fileInfo);
       });
     });
@@ -74,6 +70,10 @@ router.post('/sign-up', (req, res) => {
 })
 
 router.post('/upload', upload.single('file'), (req, res) => {
+  User.collection.findOneAndUpdate(
+    {username: req.user.username},
+    {$push: {uploads: res.req.file.id}}
+  )
   res.redirect('/user/dashboard');
 });
 
