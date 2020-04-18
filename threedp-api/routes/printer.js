@@ -59,5 +59,15 @@ function isLoggedIn(req, res, next) {
   req.session.returnTo = req.originalUrl;
   res.redirect('/printer/login');
 }
+router.get("/dashboard/pending-orders",function(req,res){
+  res.render("pendingorders");
+});
+router.get("/dashboard/print-history",function(req,res){
+  res.render("printhistory");
+});
+router.get("/dashboard/order-details",function(req,res){
+  res.render("itemsprocured");
+});
+
 
 module.exports = router;

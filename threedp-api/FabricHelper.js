@@ -82,7 +82,7 @@ function registerDesign(req, res, doc) {
             ) {
                 isProposalGood = true;
                 console.log("Transaction proposal was good");
-                res.send(doc);
+                res.redirect('/user/dashboard');
             } else {
                 res.send({ code: "500", message: proposalResponses[0].response.message });
                 console.error("Transaction proposal was bad");

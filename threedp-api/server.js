@@ -59,7 +59,12 @@ app.use((req, res, next) => {
 
 const routes = require('./routes/index')
 
+
 app.use('/', routes);
+app.use(function(req, res, next){
+  res.locals.user = req.user;
+  next();
+});
 
 app.get('/user/dashboard', isLoggedIn, (req, res) => {
   User.findOne({username: req.user.username}, '-_id uploads',
@@ -74,6 +79,10 @@ app.get('/user/dashboard', isLoggedIn, (req, res) => {
       });
     })
 });
+
+app.get('/testroutes', (req, res)=>{
+  console.log(req.user._id)
+})
 
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {

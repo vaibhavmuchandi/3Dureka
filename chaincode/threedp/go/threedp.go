@@ -21,21 +21,21 @@ type SmartContract struct {
 
 // Design Struct structure
 type designStruct struct {
-	designID             string `json:"designID"`
-	dbID                 string `json:"dbID"`
-	ownerID				 string `json:"ownerID"`
-	ownerName	         string `json:"ownerName"`
-	ownerEmail			 string `json:"ownerEmail"`
+	DesignID             string `json:"designID"`
+	DbID                 string `json:"dbID"`
+	OwnerID				 string `json:"ownerID"`
+	OwnerName	         string `json:"ownerName"`
+	OwnerEmail			 string `json:"ownerEmail"`
 }
 // Order history struct
 type orderRecordStruct struct{
-	orderID			string `json:"orderID"`
-	designID		string `json:"designID"`
-	customerID		string `json:"customerID"`
-	quantity		string `json:"quantity"`
-	printerID		string `json:"printerID"`
-	currentStatus	string `json:"currentStatus"`
-	itemsProcured	string `json:"itemsProcured"`
+	OrderID			string `json:"orderID"`
+	DesignID		string `json:"designID"`
+	CustomerID		string `json:"customerID"`
+	Quantity		string `json:"quantity"`
+	PrinterID		string `json:"printerID"`
+	CurrentStatus	string `json:"currentStatus"`
+	ItemsProcured	string `json:"itemsProcured"`
 }
 // Init SmartContract
 func (s *SmartContract) Init(APIstub shim.ChaincodeStubInterface) sc.Response {
@@ -69,23 +69,23 @@ func (s *SmartContract) Invoke(APIstub shim.ChaincodeStubInterface) sc.Response 
 // registerDesign: Register the designs provided by customers with unique non changeable id
 func (s *SmartContract) registerDesign(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
 
-	DesignID := args[0]
-	DbID := args[1]
-	OwnerID := args[2]
-	OwnerName := args[3]
-	OwnerEmail := args[4]
+	designID := args[0]
+	dbID := args[1]
+	ownerID := args[2]
+	ownerName := args[3]
+	ownerEmail := args[4]
 
-	Design := designStruct {designID: DesignID,
-		dbID:                   DbID,
-		ownerID:        		OwnerID,
-		ownerName: 				OwnerName,
-		ownerEmail:             OwnerEmail}
+	Design := designStruct {DesignID: designID,
+		DbID:                   dbID,
+		OwnerID:        		ownerID,
+		OwnerName: 				ownerName,
+		OwnerEmail:             ownerEmail}
 	DesignBytes, err := json.Marshal(Design)
 	if err != nil {
 		return shim.Error("JSON Marshal failed.")
 	}
 
-	APIstub.PutState(DesignID, DesignBytes)
+	APIstub.PutState(designID, DesignBytes)
 	fmt.Println("Design has been registered -> ", Design)
 
 	return shim.Success(nil)
@@ -94,25 +94,25 @@ func (s *SmartContract) registerDesign(APIstub shim.ChaincodeStubInterface, args
 //Add a new printing order
 func (s *SmartContract) createOrder(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
 
-	OrderID := args[0]
-	DesignID := args[1]
-	CustomerID := args[2]
-	Quantity := args[3]
-	PrinterID := args[4]
+	orderID := args[0]
+	designID := args[1]
+	customerID := args[2]
+	quantity := args[3]
+	printerID := args[4]
 
-	Order := orderRecordStruct {orderID: OrderID,
-		designID:               DesignID,
-		customerID:        		CustomerID,
-		quantity : 				Quantity,
-		printerID:				PrinterID,
-		currentStatus: 			"Order placed",
-		itemsProcured:			""}
+	Order := orderRecordStruct {OrderID: orderID,
+		DesignID:               designID,
+		CustomerID:        		customerID,
+		Quantity : 				quantity,
+		PrinterID:				printerID,
+		CurrentStatus: 			"Order placed",
+		ItemsProcured:			""}
 	orderBytes, err := json.Marshal(Order)
 	if err != nil {
 		return shim.Error("JSON Marshal failed.")
 	}
 
-	APIstub.PutState(OrderID, orderBytes)
+	APIstub.PutState(orderID, orderBytes)
 	fmt.Println("Order created successfully -> ", Order)
 
 	return shim.Success(nil)
@@ -122,10 +122,10 @@ func (s *SmartContract) createOrder(APIstub shim.ChaincodeStubInterface, args []
 
 func (s *SmartContract) changeStatus(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
 
-	OrderID := args[0]
-	status := args[1]
+	orderID := args[0]
+	currentStatus := args[1]
 
-	orderAsBytes, _ := APIstub.GetState(OrderID)
+	orderAsBytes, _ := APIstub.GetState(orderID)
 
 	var order orderRecordStruct
 
@@ -135,13 +135,13 @@ func (s *SmartContract) changeStatus(APIstub shim.ChaincodeStubInterface, args [
 	}
 
 
-	Order := orderRecordStruct{orderID: order.orderID,
-		designID:             order.designID,
-		customerID:       	  order.customerID,
-		quantity: 			  order.quantity,
-		printerID:         	  order.printerID,
-		currentStatus: 		  status,
-		itemsProcured: 		  order.itemsProcured}
+	Order := orderRecordStruct{OrderID: order.OrderID,
+		DesignID:             order.DesignID,
+		CustomerID:       	  order.CustomerID,
+		Quantity: 			  order.Quantity,
+		PrinterID:         	  order.PrinterID,
+		CurrentStatus: 		  currentStatus,
+		ItemsProcured: 		  order.ItemsProcured}
 		
 
 	orderBytes, err := json.Marshal(Order)
@@ -149,7 +149,7 @@ func (s *SmartContract) changeStatus(APIstub shim.ChaincodeStubInterface, args [
 		return shim.Error("Issue with Record json marshaling")
 	}
 
-	APIstub.PutState(Order.orderID, orderBytes)
+	APIstub.PutState(Order.OrderID, orderBytes)
 	fmt.Println("Status has been updated -> ", Order)
 
 	return shim.Success(nil)
@@ -158,10 +158,10 @@ func (s *SmartContract) changeStatus(APIstub shim.ChaincodeStubInterface, args [
 // Function to add the details of procured items
 func (s *SmartContract) addProcurement(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
 
-	OrderID := args[0]
-	items := args[1]
+	orderID := args[0]
+	itemsProcured := args[1]
 
-	orderAsBytes, _ := APIstub.GetState(OrderID)
+	orderAsBytes, _ := APIstub.GetState(orderID)
 
 	var order orderRecordStruct
 
@@ -171,13 +171,13 @@ func (s *SmartContract) addProcurement(APIstub shim.ChaincodeStubInterface, args
 	}
 
 
-	Order := orderRecordStruct{orderID: order.orderID,
-		designID:             order.designID,
-		customerID:       	  order.customerID,
-		quantity: 			  order.quantity,
-		printerID:            order.printerID,
-		currentStatus:		  "Items procured",
-		itemsProcured: 		  items}
+	Order := orderRecordStruct{OrderID: order.OrderID,
+		DesignID:             order.DesignID,
+		CustomerID:       	  order.CustomerID,
+		Quantity: 			  order.Quantity,
+		PrinterID:            order.PrinterID,
+		CurrentStatus:		  "Items procured",
+		ItemsProcured: 		  itemsProcured}
 		
 
 	orderBytes, err := json.Marshal(Order)
@@ -185,7 +185,7 @@ func (s *SmartContract) addProcurement(APIstub shim.ChaincodeStubInterface, args
 		return shim.Error("Issue with Record json marshaling")
 	}
 
-	APIstub.PutState(Order.orderID, orderBytes)
+	APIstub.PutState(Order.OrderID, orderBytes)
 	fmt.Println("Items procurement details added -> ", Order)
 
 	return shim.Success(nil)
@@ -195,8 +195,8 @@ func (s *SmartContract) addProcurement(APIstub shim.ChaincodeStubInterface, args
 //Function to obtain the latest status of order
 func (s *SmartContract) getStatus(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
 
-	OrderID := args[0]
-	orderAsBytes, _ := APIstub.GetState(OrderID)
+	orderID := args[0]
+	orderAsBytes, _ := APIstub.GetState(orderID)
 
 	return shim.Success(orderAsBytes)
 	
@@ -205,9 +205,8 @@ func (s *SmartContract) getStatus(APIstub shim.ChaincodeStubInterface, args []st
 //Function to obtain the ownership details of a design
 func (s *SmartContract) getOwnershipDetails(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
 
-	DesignID := args[0]
-	DesignAsBytes, _ := APIstub.GetState(DesignID)
-
+	designID := args[0]
+	DesignAsBytes, _ := APIstub.GetState(designID)
 	return shim.Success(DesignAsBytes)
 	
 }
@@ -215,9 +214,9 @@ func (s *SmartContract) getOwnershipDetails(APIstub shim.ChaincodeStubInterface,
 //Function to get entire order history
 func (s *SmartContract) getOrderHistory(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
 
-	OrderID := args[0]
+	orderID := args[0]
 
-	resultsIterator, err := APIstub.GetHistoryForKey(OrderID)
+	resultsIterator, err := APIstub.GetHistoryForKey(orderID)
 	if err != nil {
 		return shim.Error("Error retrieving Record history with GetHistoryForKey")
 	}
