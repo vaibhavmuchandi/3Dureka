@@ -52,34 +52,23 @@
                   <thead>
                     <tr>
                       <th>Order ID</th>
-                      <th>Design ID</th>
-                      <th>CustomerID</th>
-                      <th>Quantity</th>
-                      <th>Status</th>
-                      <th>Items Procured</th>
                       <th> Download</th>
                       <th>Print</th>
                     </tr>
                   </thead>
                   <tbody>
+                    <% for(let i in orders){ %>
                     <tr>
-
-                      <td>Ab123</td>
-                      <td>Cd123</td>
-                      <td>iam3d123</td>
-                      <td>12</td>
-                      <td>Pending</td>
-                      <td>pen</td>
+                      <td><%=orders[i]%></td>
                       <form class="" action="#" method="post">
                         <td> <button class="btn btn-danger py-0" type="submit" name="download">Download</button> </td>
                       </form>
-                      <form action="/printer/print/options">
-                        <td> <button class="btn btn-danger py-0" type="submit" name="print">Print</button> </td>
+                      <form action="/printer/print/options" method="POST">
+                        
+                        <td> <input type="text" name="orderid" value="<%=orders[i]%>" hidden><button class="btn btn-danger py-0" name="print">Print</button> </td>
                       </form>
-
-
                     </tr>
-
+                    <% } %>
                   </tbody>
 
                 </table>

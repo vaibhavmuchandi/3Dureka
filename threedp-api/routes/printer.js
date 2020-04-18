@@ -4,6 +4,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const router = express.Router();
 const Printer = require('../models/printer');
 const User = require('../models/user');
+const fabrichelper = require('../FabricHelper');
 
 router.get('/login', (req, res) => {
     res.render('printer-login')
@@ -43,16 +44,11 @@ router.post('/sign-up', (req, res) => {
    });
 });
 
-router.get('/print/options', (req, res) => {
-  res.render('itemsprocured')
-})
-
-router.post('/print/options', (req, res) => {
-  res.render('itemsprocured')
-})
 
 router.get('/dashboard',function(req,res){
-  res.render('pendingorders');
+  User.findOne({username: req.user.username}, (err, user) => {
+    res.render('pendingorders', {orders: user.orders})
+  })
 });
 
 router.get('/dashboard/print-history',function(req,res){
@@ -62,6 +58,68 @@ router.get('/dashboard/print-history',function(req,res){
 router.get('/dashboard/order-details',function(req,res){
   res.render('itemsprocured');
 });
+
+
+router.get('/print/options', (req, res) => {
+  res.render('itemsprocured', {orderid: ""})
+})
+
+router.post('/print/options', (req, res) => {
+  let orderid = req.body.orderid
+  res.render('itemsprocured', {orderid: orderid})
+})
+
+router.get('/print/addprocurement', (req, res) => {
+  res.render('itemsprocured', {message: ""})
+})
+
+router.post('/print/addprocurement', (req, res) => {
+  let orderId = req.body.orderid
+  let Items = req.body.materials+", "+req.body.quantity+" "
+  let doc = {
+    'orderID' : orderId,
+    'items' : Items
+  }
+  fabrichelper.addProcurement(res, req, doc)
+})
+
+router.get('/print/addtracking', (req, res,) => {
+  res.render('itemsprocured', {message: ''})
+})
+
+router.post('/print/addtracking', (req, res) => {
+  let orderid = req.body.orderid
+  let Status = "Shipped with trackin details"+req.body.tracking
+  let doc = {
+    'orderID' : orderid,
+    'status' : Status
+  }
+  fabrichelper.changeStatus(req, res, doc)
+})
+
+router.get('/print/startprinting', (req, res) => {
+  res.render('itemsprocured', {message: ''})
+})
+
+router.post('/print/startprinting', (req, res) => {
+  let doc = {
+    'orderID' : req.body.orderid,
+    'status' : 'Printing Started!'
+  }
+  fabrichelper.changeStatus(req, res, doc)
+})
+
+router.get('/print/endprinting', (req, res) => {
+  res.render('itemsprocured', {message: ''})
+})
+
+router.post('/print/endprinting', (req, res) => {
+  let doc = {
+    'orderID' : req.body.orderid,
+    'status' : 'Printing Stopped!'
+  }
+  fabrichelper.changeStatus(req, res, doc)
+})
 
 
 function isLoggedIn(req, res, next) {
