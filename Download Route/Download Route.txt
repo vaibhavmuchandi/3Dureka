@@ -1,0 +1,24 @@
+//@route /file/:filename
+//@desc downloading file
+app.get('/file/:filename', (req, res) => {
+  gfs.collection('uploads'); //set collection name to lookup into
+
+//to check if fie exist
+  gfs.files.find({filename: req.params.filename}).toArray(function(err, files){
+      if(!files || files.length === 0){
+          return res.status(404).json({
+              responseCode: 1,
+              responseMessage: "error"
+          });
+      }
+      // create read stream
+      var readstream = gfs.createReadStream({
+          filename: files[0].filename,
+          root: "uploads"
+      });
+      // set the proper content type
+      res.set('Content-Type', files[0].contentType)
+      // Return response
+      return readstream.pipe(res);
+  });
+});
