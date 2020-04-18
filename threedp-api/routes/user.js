@@ -89,6 +89,7 @@ router.post('/upload', upload.single('file'), (req, res) => {
     'ownerEmail' : Owneremail
   }
   //fabrichelper.registerDesign(req, res, doc)
+  res.redirect('/user/dashboard')
 });
 
 router.get('/dashboard/order-details', isLoggedIn, (req, res) => {
@@ -110,6 +111,7 @@ router.post('/place-order/success', (req, res)=> {
   let designId = req.body.designid;
   let userId = req.body.userid;
   let address1 = req.body.address1;
+  let coordinates = req.body.coordinates;
   let address2 = req.body.address2;
   let quantity = req.body.quantity;
   let doc = {
@@ -118,16 +120,34 @@ router.post('/place-order/success', (req, res)=> {
     'userID' : userId,
     'quantity' : quantity
   }
-  res.send(doc)
-})
+  User.find({flag: 'printer'}, '-id coordinates', (err, printers) => {
+    console.log(coods);
+    let distance = []
+    for(let i in printers) {
+      distance.push(calcDist(coordinates, printers.coordinates[i]))
+    }
+    res.send(Math.min(...distance));
+  })
+});
 
-function checkLoggedIn(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  req.session.returnTo = req.originalUrl;
-  next();
+function toRadians(deg) {
+  return (deg * (Math.PI / 180))
 }
+
+function calcDist(cood1, cood2) {
+  let lat1 = toRadians(cood1[1]);
+  let lat2 = toRadians(cood2[1]);
+  let lon1 = toRadians(cood1[0]);
+  let lon2 = toRadians(cood2[0]);
+
+  let dlon = lon2 - lon1;
+  let dlat = lat2 - lat1;
+  let a = Math.sin(dlat / 2) ** 2 + Math.cos(lat1) * Math.cos(lat2) * Math.sin(dlon / 2) ** 2;
+
+  let c = 2 * Math.asin(Math.sqrt(a))
+  return (c * 6371)
+}
+
 
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {
