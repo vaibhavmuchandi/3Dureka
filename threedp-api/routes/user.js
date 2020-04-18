@@ -121,11 +121,11 @@ router.post('/place-order/success', (req, res)=> {
     'quantity' : quantity
   }
   User.find({flag: 'printer'}, 'coordinates location', (err, printers) => {
-    console.log(printers);
     let distance = []
     for(let i in printers) {
       distance.push(calcDist(coordinates, printers[i].coordinates))
     }
+    console.log(distance);
     min = Math.min(...distance);
     res.send(printers[distance.indexOf(min)])
   })
@@ -155,7 +155,7 @@ function isLoggedIn(req, res, next) {
     return next();
   }
   req.session.returnTo = req.originalUrl;
-  res.redirect('/user/luser-login');
+  res.redirect('/user/login');
 }
 
 function makeid(length) {
