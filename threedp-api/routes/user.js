@@ -8,6 +8,7 @@ const GridFsStorage = require('multer-gridfs-storage');
 const Grid = require('gridfs-stream');
 const router = express.Router();
 const User = require('../models/user');
+const fabrichelper = require('../FabricHelper')
 
 //Create storage engine
 const storage = new GridFsStorage({
@@ -74,7 +75,22 @@ router.post('/sign-up', (req, res) => {
 })
 
 router.post('/upload', upload.single('file'), (req, res) => {
-  res.redirect('/user/dashboard');
+
+  let Designid = makeid(16)
+  let Dbid = res.req.file.id
+  let Ownerid = req.user._id
+  let Ownername = req.user.name
+  let Owneremail = req.user.email
+  let doc = {
+    'designID' : Designid,
+    'dbID' : Dbid.toString(),
+    'ownerID' : Ownerid.toString(),
+    'ownerName' : Ownername,
+    'ownerEmail' : Owneremail
+  }
+  console.log(doc)
+  fabrichelper.registerDesign(req, res, doc)
+
 });
 
 function checkLoggedIn(req, res, next) {
@@ -92,5 +108,15 @@ function isLoggedIn(req, res, next) {
   req.session.returnTo = req.originalUrl;
   res.redirect('/login');
 }
+function makeid(length) {
+  var result           = '';
+  var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  var charactersLength = characters.length;
+  for ( var i = 0; i < length; i++ ) {
+     result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+}
+
 
 module.exports =  router ;
