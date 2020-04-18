@@ -94,8 +94,34 @@ router.post('/upload', upload.single('file'), (req, res) => {
 
 });
 
-router.post('/place-order', (req, res) => {
+router.get('/place-order/add-details', (req, res) => {
+  res.render('orderdetails.ejs',{details: {}})
+})
 
+router.post('/place-order/add-details', (req, res) => {
+  designId = req.body.designid;
+  userId = req.user._id
+  details = {
+    'designid' : designId,
+    'userid' : userId
+  }
+  res.render('orderdetails.ejs',{details: details})
+})
+
+router.post('/place-order/success', (req, res)=> {
+  let orderid = makeid(4)
+  let designId = req.body.designid
+  let userId = req.body.userid
+  let address1 = req.body.address1
+  let address2 = req.body.address2
+  let quantity = req.body.quantity
+  let doc = {
+    'orderID' : orderid,
+    'designID' : designId,
+    'userID' : userId,
+    'quantity' : quantity
+  }
+  res.send(doc)
 })
 
 function checkLoggedIn(req, res, next) {

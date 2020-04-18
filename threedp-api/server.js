@@ -53,12 +53,7 @@ app.use(function(req, res, next){
 app.get('/user/dashboard', isLoggedIn, (req, res) => {
   User.findOne({username: req.user.username}, '-_id uploads designid',
   (err, user) => {
-<<<<<<< HEAD
-    console.log(user.uploads);
-    console.log(user.designid)
-=======
     console.log(user);
->>>>>>> 16d416d2fae12a6b3b684f5da78d02788492784f
     if(user.uploads.length==0)
       res.render('user-dashboard', {uploads: [], designid: []})
     else
