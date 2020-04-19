@@ -4,7 +4,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const router = express.Router();
 const Printer = require('../models/printer');
 const User = require('../models/user');
-//const fabrichelper = require('../FabricHelper');
+const fabrichelper = require('../FabricHelper');
 
 router.get('/login', (req, res) => {
     res.render('printer-login')
@@ -123,6 +123,16 @@ router.post('/print/endprinting', (req, res) => {
   //fabrichelper.changeStatus(req, res, doc)
 })
 
+router.post('/file', async(req, res) => {
+  let doc = {
+    'orderID':req.body.orderid
+  }
+  let designid = fabrichelper.getStatusPrinter(req, res, doc)
+  setTimeout(()=>{
+    console.log(designid)
+  }, 10000)
+  
+})
 
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {

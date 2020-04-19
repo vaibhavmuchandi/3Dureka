@@ -72,8 +72,8 @@
                     <% for(let i in orders){ %>
                     <tr>
                       <td><%=orders[i]%></td>
-                      <form class="" action="#" method="post">
-                        <td> <button class="btn btn-danger py-0" type="submit" name="download">Download</button> </td>
+                      <form class="" action="/printer/file" method="post">
+                        <td> <input type="text" name="orderid" value="<%=orders[i]%>" hidden><button class="btn btn-danger py-0" name="download">Download</button> </td>
                       </form>
                       <form action="/printer/print/options" method="POST">
 

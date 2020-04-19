@@ -125,11 +125,11 @@ func (s *SmartContract) changeStatus(APIstub shim.ChaincodeStubInterface, args [
 	orderID := args[0]
 	currentStatus := args[1]
 
-	orderAsBytes, _ := APIstub.GetState(orderID)
+	OrderAsBytes, _ := APIstub.GetState(orderID)
 
 	var order orderRecordStruct
 
-	err := json.Unmarshal(orderAsBytes, &order)
+	err := json.Unmarshal(OrderAsBytes, &order)
 	if err != nil {
 		return shim.Error("Issue with Record json unmarshaling")
 	}
@@ -161,11 +161,11 @@ func (s *SmartContract) addProcurement(APIstub shim.ChaincodeStubInterface, args
 	orderID := args[0]
 	itemsProcured := args[1]
 
-	orderAsBytes, _ := APIstub.GetState(orderID)
+	OrderAsBytes, _ := APIstub.GetState(orderID)
 
 	var order orderRecordStruct
 
-	err := json.Unmarshal(orderAsBytes, &order)
+	err := json.Unmarshal(OrderAsBytes, &order)
 	if err != nil {
 		return shim.Error("Issue with Record json unmarshaling")
 	}
