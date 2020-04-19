@@ -35,7 +35,21 @@
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0"><input class="form-control form-control-user" type="text" id="inputUsername" placeholder="Username" name="username" required></div>
                   <div class="col-sm-6"><input class="form-control form-control-user" type="password" id="inputPassword" placeholder="Password" name="password"></div>
-                </div><button class="btn btn-primary btn-block text-white btn-user">Register Account</button>
+                </div>
+                <div class="form-group">
+                  <input type="text" name="typesOfPrinter" id="typesOfPrinter" hidden>
+                  <br>
+                  <h6 class="text-dark">Types of Printers</h6>
+                  <div class="custom-control custom-checkbox"><input class="custom-control-input" type="checkbox" id="formCheck-1" onclick="buildList('SLA')" value="SLA"><label class="custom-control-label" for="formCheck-1">Stereolithography
+                      (SLA)</label>
+                  </div>
+                  <div class="custom-control custom-checkbox"><input class="custom-control-input" type="checkbox" id="formCheck-2" onclick="buildList('FDM')" value="FDM"><label class="custom-control-label" for="formCheck-2">Fused Deposition MOdeling
+                      (FDM)</label></div>
+                  <div class="custom-control custom-checkbox"><input class="custom-control-input" type="checkbox" id="formCheck-3" onclick="buildList('SLS')" value="SLS"><label class="custom-control-label" for="formCheck-3">Selective Laser Sintering
+                      (SLS)</label></div>
+                </div>
+                <br>
+                <button class="btn btn-primary btn-block text-white btn-user">Register Account</button>
                 <hr><a class="btn btn-primary btn-block text-white btn-google btn-user" role="button"><i class="fab fa-google"></i>&nbsp; Register with Google</a><a class="btn btn-primary btn-block text-white btn-facebook btn-user" role="button"><i
                     class="fab fa-facebook-f"></i>&nbsp; Register with Facebook</a>
                 <hr>
@@ -95,9 +109,18 @@
     });
     engine.bindDefaultTypeaheadEvent($('#inputLocation'));
     $(engine).bind('addresspicker:selected', setCoordinates);
-  </script>
-</body>
 
+    let types = []
+
+    function buildList(type) {
+      let index = types.indexOf(type);
+      if (index == -1)
+        types.push(type)
+      else
+        types.splice(index, 1)
+      $('#typesOfPrinter').val(types);
+    }
+  </script>
 </body>
 
 </html>

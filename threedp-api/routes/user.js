@@ -117,7 +117,9 @@ router.post('/place-order/confirm-order', (req, res) => {
   let coordinates = req.body.coordinates.split(',');
   let address2 = req.body.address2;
   let quantity = req.body.quantity;
-  User.find({flag: 'printer'}, (err, printers) => {
+  let printerType = req.body.typeOfPrinter;
+  User.find({flag: 'printer', printerType: printerType}, (err, printers) => {
+    console.log(printers);
     let distance = []
     for(let i in printers) {
       distance.push(calcDist(coordinates, printers[i].coordinates))
