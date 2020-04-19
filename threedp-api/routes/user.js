@@ -106,6 +106,25 @@ router.post('/place-order/add-details', (req, res) => {
   res.render('orderdetails', {details: details})
 })
 
+router.post('/place-order/confirm-order', isLoggedIn, (req, res) => {
+  let designId = req.body.designid;
+  let userId = req.body.userid;
+  let address1 = req.body.address1;
+  let coordinates = req.body.coordinates.split(',');
+  let address2 = req.body.address2;
+  let quantity = req.body.quantity;
+  User.find({flag: 'printer'}, (err, printers) => {
+    let distance = []
+    for(let i in printers) {
+      distance.push(calcDist(coordinates, printers[i].coordinates))
+    }
+    console.log(distance);
+    min = Math.min(...distance);
+    //res.send(printers[distance.indexOf(min)])
+    res.render('confirm-order', {printer: printers[distance.indexOf(min)], distance: Math.round(min)})
+  })
+});
+
 router.post('/place-order/success', (req, res)=> {
   let orderid = makeid(4)
   let designId = req.body.designid;
@@ -120,19 +139,11 @@ router.post('/place-order/success', (req, res)=> {
     'userID' : userId,
     'quantity' : quantity
   }
-  User.find({flag: 'printer'}, 'coordinates location', (err, printers) => {
-    let distance = []
-    for(let i in printers) {
-      distance.push(calcDist(coordinates, printers[i].coordinates))
-    }
-    console.log(distance);
-    min = Math.min(...distance);
-    res.send(printers[distance.indexOf(min)])
-  })
+
 });
 
 function toRadians(deg) {
-  return (deg * (Math.PI / 180))
+  return (deg * (Math.PI / 180));
 }
 
 function calcDist(cood1, cood2) {
@@ -141,6 +152,7 @@ function calcDist(cood1, cood2) {
   let lon1 = toRadians(cood1[0]);
   let lon2 = toRadians(cood2[0]);
 
+  //Haversine formula
   let dlon = lon2 - lon1;
   let dlat = lat2 - lat1;
   let a = Math.sin(dlat / 2) ** 2 + Math.cos(lat1) * Math.cos(lat2) * Math.sin(dlon / 2) ** 2;

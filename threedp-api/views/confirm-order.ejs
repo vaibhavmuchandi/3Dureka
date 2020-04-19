@@ -139,123 +139,48 @@
           </div>
         </nav>
         <div class="container-fluid">
-          <div class="d-sm-flex justify-content-between align-items-center mb-4">
-
-          </div>
-
-          <div class="container">
-            <div class="row justify-content-center">
-              <div class="col-md-6 col-md-offset-3 ">
-                <div class="card shadow mb-4" style="padding:60px;">
-                  <form class="form-horizontal" action="/user/place-order/confirm-order" method="POST">
-                    <fieldset>
-                      <legend class="text-center">Order Details</legend>
-                      <input type="text" name="designid" value="<%=details.designid%>" hidden>
-                      <input type="text" name="userid" value="<%=details.userid%>" hidden>
-                      <!-- adress1 input-->
-                      <div class="form-group">
-                        <label class="col-md-3 control-label" for="name">Address</label>
-                        <div class="col-md-12">
-                          <input id="inputAddress" name="address1" type="text" placeholder="Enter your address" autocomplete="off" class="form-control">
-                        </div>
-                        <input type="text" id="coordinates" name="coordinates" hidden>
-                      </div>
-                      <!-- Address2 input-->
-                      <div class="form-group">
-                        <label class="col-md-3 control-label" for="address">Address</label>
-                        <div class="col-md-12">
-                          <input id="address" name="address2" type="text" placeholder="Enter your Address" class="form-control">
-
-                        </div>
-                      </div>
-
-
-                      <!-- quantity input-->
-                      <div class="form-group">
-                        <label class="col-md-3 control-label" for="email">Quantity</label>
-                        <div class="col-md-9">
-                          <input id="quantity" name="quantity" type="text" placeholder="Enter the quantity" class="form-control">
-                        </div>
-                      </div>
-
-
-                      <!-- Form actions -->
-                      <div class="form-group">
-                        <div class="col-md-12 text-center">
-                          <button class="btn btn-danger btn-lg">Submit</button>
-
-                        </div>
-                      </div>
-                    </fieldset>
-                  </form>
-
+          <div class="row justify-content-center">
+            <div class="col-md-6 col-xl-5 mb-4" style="margin:40px;">
+              <div class="card shadow border-left-danger py-2">
+                <div class="card-body">
+                  <div class="row align-items-center no-gutters">
+                    <div class="col mr-2">
+                      <div class="text-uppercase text-danger text-center font-weight-bold text-xs mb-1"><span>We found the nearest 3D printing facility to you!</span></div>
+                      Name<div class="text-dark font-weight-bold h5 mb-0"><span><%=printer.name%></span></div>
+                      Owner<div class="text-dark font-weight-bold h5 mb-0"><span><%=printer.owner%></span></div>
+                      Location<div class="text-dark font-weight-bold h5 mb-0"><span><%=printer.location%></span></div>
+                      Contact<div class="text-dark font-weight-bold h5 mb-0"><span><%=printer.contact%></span></div>
+                      Email<div class="text-dark font-weight-bold h5 mb-0"><span><%=printer.email%></span></div>
+                      <div class="text-uppercase text-right"><span>Distance: <%=distance%> km</span></div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-
-
-
-
-
-
+          <div class="row justify-content-center">
+            <button class="btn btn-danger">Confirm Order</button>
+          </div>
         </div>
-      </div>
-      <footer class="bg-white sticky-footer">
-        <div class="container my-auto">
-          <div class="text-center my-auto copyright"><span>Copyright © Brand 2020</span></div>
-        </div>
-      </footer>
-    </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
-  </div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
-  <script src="/js/script.min.js?h=cda46db5f8853791105ff4715b7208f3"></script>
-  <script src="https://rawgit.com/corejavascript/typeahead.js/master/dist/typeahead.bundle.js"></script>
-  <script src="https://rawgit.com/komoot/typeahead-address-photon/master/src/typeahead-address-photon.js"></script>
-
-  <script type="text/javascript">
-    function formatResult(predictions) {
-      let bbox = [68.1113787, 35.6745457, 97.395561, 6.2325274];
-      let name = predictions.properties.name;
-      let city = predictions.properties.city || '';
-      let state = predictions.properties.state || '';
-      let country = predictions.properties.country || '';
-      let lon = predictions.geometry.coordinates[0];
-      let lat = predictions.geometry.coordinates[1];
-      if (lon > bbox[0] && lon < bbox[2] && lat < bbox[1] && lat > bbox[3]) {
-        if (city != '')
-          return `${name}, ${city}, ${state}, ${country}`;
-        else if (state != '')
-          return `${name}, ${state}, ${country}`;
-        else if (country != '')
-          return `${name}, ${country}`;
-        return `${name}`;
-      }
-    }
-
-    var engine = new PhotonAddressEngine({
-      url: 'https://photon.komoot.de/',
-      formatResult: formatResult
-    });
-
-    function setCoordinates(event, selected) {
-      console.log(selected.geometry.coordinates);
-      $('#coordinates').val(selected.geometry.coordinates);
-    }
-
-    $('#inputAddress').typeahead({
-      hint: true,
-      highlight: true
-    }, {
-      source: engine.ttAdapter(),
-      displayKey: 'description'
-    });
-    engine.bindDefaultTypeaheadEvent($('#inputAddress'));
-    $(engine).bind('addresspicker:selected', setCoordinates);
-  </script>
+        <br><br><br>
+        <footer class="bg-white sticky-footer">
+          <div class="container my-auto">
+            <div class="text-center my-auto copyright"><span>Copyright © Brand 2020</span></div>
+          </div>
+        </footer>
+      </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+    <script src="/js/script.min.js?h=cda46db5f8853791105ff4715b7208f3"></script>
+    <script type="text/javascript">
+      $('input[type="file"]').change(function(e) {
+        var fileName = e.target.files[0].name;
+        $('.custom-file-label').html(fileName);
+      });
+    </script>
 </body>
 
 </html>
