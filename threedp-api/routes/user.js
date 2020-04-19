@@ -9,7 +9,7 @@ const GridFsStorage = require('multer-gridfs-storage');
 const Grid = require('gridfs-stream');
 const router = express.Router();
 const User = require('../models/user');
-const fabrichelper = require('../FabricHelper')
+//const fabrichelper = require('../FabricHelper')
 const app = express()
 
 //Create storage engine
@@ -72,6 +72,9 @@ router.post('/sign-up', (req, res) => {
    });
 })
 
+router.use(isLoggedIn);
+router.use(isUser);
+
 router.post('/upload', upload.single('file'), (req, res) => {
   let Designid = makeid(16)
   User.collection.findOneAndUpdate(
@@ -93,7 +96,7 @@ router.post('/upload', upload.single('file'), (req, res) => {
   res.redirect('/user/dashboard')
 });
 
-router.get('/dashboard/order-details', isLoggedIn, (req, res) => {
+router.get('/dashboard/order-details', (req, res) => {
   res.render('orderdetails', {details: {}})
 });
 
@@ -107,7 +110,7 @@ router.post('/place-order/add-details', (req, res) => {
   res.render('orderdetails', {details: details})
 })
 
-router.post('/place-order/confirm-order', isLoggedIn, (req, res) => {
+router.post('/place-order/confirm-order', (req, res) => {
   let designId = req.body.designid;
   let userId = req.body.userid;
   let address1 = req.body.address1;
@@ -119,9 +122,9 @@ router.post('/place-order/confirm-order', isLoggedIn, (req, res) => {
     for(let i in printers) {
       distance.push(calcDist(coordinates, printers[i].coordinates))
     }
-    console.log(distance);
     min = Math.min(...distance);
-    //res.send(printers[distance.indexOf(min)])
+    res.locals.printers = printers;
+    res.locals.distances = distance;
     res.render('confirm-order', {printer: printers[distance.indexOf(min)], distance: Math.round(min)})
   })
 });
@@ -190,6 +193,13 @@ function isLoggedIn(req, res, next) {
   }
   req.session.returnTo = req.originalUrl;
   res.redirect('/user/login');
+}
+
+function isUser(req, res, next) {
+  if(req.user.flag == 'user')
+    return next();
+  res.redirect(req.session.returnTo || '/user/login')
+  delete req.session.returnTo;
 }
 
 function makeid(length) {

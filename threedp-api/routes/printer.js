@@ -4,7 +4,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const router = express.Router();
 const Printer = require('../models/printer');
 const User = require('../models/user');
-const fabrichelper = require('../FabricHelper');
+//const fabrichelper = require('../FabricHelper');
 
 router.get('/login', (req, res) => {
     res.render('printer-login')
@@ -44,8 +44,10 @@ router.post('/sign-up', (req, res) => {
    });
 });
 
+router.use(isLoggedIn);
+router.use(isPrinter);
 
-router.get('/dashboard',function(req,res){
+router.get('/dashboard', function(req,res){
   User.findOne({username: req.user.username}, (err, user) => {
     res.render('pendingorders', {orders: user.orders})
   })
@@ -80,7 +82,7 @@ router.post('/print/addprocurement', (req, res) => {
     'orderID' : orderId,
     'items' : Items
   }
-  fabrichelper.addProcurement(res, req, doc)
+  //fabrichelper.addProcurement(res, req, doc)
 })
 
 router.get('/print/addtracking', (req, res,) => {
@@ -94,7 +96,7 @@ router.post('/print/addtracking', (req, res) => {
     'orderID' : orderid,
     'status' : Status
   }
-  fabrichelper.changeStatus(req, res, doc)
+  //fabrichelper.changeStatus(req, res, doc)
 })
 
 router.get('/print/startprinting', (req, res) => {
@@ -106,7 +108,7 @@ router.post('/print/startprinting', (req, res) => {
     'orderID' : req.body.orderid,
     'status' : 'Printing Started!'
   }
-  fabrichelper.changeStatus(req, res, doc)
+  //fabrichelper.changeStatus(req, res, doc)
 })
 
 router.get('/print/endprinting', (req, res) => {
@@ -118,7 +120,7 @@ router.post('/print/endprinting', (req, res) => {
     'orderID' : req.body.orderid,
     'status' : 'Printing Stopped!'
   }
-  fabrichelper.changeStatus(req, res, doc)
+  //fabrichelper.changeStatus(req, res, doc)
 })
 
 
@@ -128,6 +130,13 @@ function isLoggedIn(req, res, next) {
   }
   req.session.returnTo = req.originalUrl;
   res.redirect('/printer/login');
+}
+
+function isPrinter(req, res, next) {
+  if(req.user.flag == 'printer')
+    return next();
+  res.redirect(req.session.returnTo || '/printer/login');
+  delete req.session.returnTo;
 }
 
 

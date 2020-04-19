@@ -161,6 +161,41 @@
           <div class="row justify-content-center">
             <button class="btn btn-danger">Confirm Order</button>
           </div>
+          <br><br>
+          <div class="row justify-content-center">
+            <div class="col-lg-3 mb-4">
+              <div class="card text-white bg-danger shadow">
+                <div class="card-body">
+                  <p class="m-0 text-center">Not satisfied? Look for other options</p>
+                  <br>
+                  <p class="small m-0 text-center"><button class="btn" style="background: #eee;" onclick="renderAll()"><span class="text-danger">Search</span> </button> </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="all-printers" hidden>
+            <% for(let i in printers) {%>
+            <div class="row justify-content-center">
+              <div class="col-md-6 col-xl-5 mb-4" style="margin:40px;">
+                <div class="card shadow border-left-danger py-2">
+                  <div class="card-body">
+                    <div class="row align-items-center no-gutters">
+                      <div class="col mr-2">
+                        Name<div class="text-dark font-weight-bold h5 mb-0"><span><%=printers[i].name%></span></div>
+                        Owner<div class="text-dark font-weight-bold h5 mb-0"><span><%=printers[i].owner%></span></div>
+                        Location<div class="text-dark font-weight-bold h5 mb-0"><span><%=printers[i].location%></span></div>
+                        Contact<div class="text-dark font-weight-bold h5 mb-0"><span><%=printers[i].contact%></span></div>
+                        Email<div class="text-dark font-weight-bold h5 mb-0"><span><%=printers[i].email%></span></div>
+                        <div class="text-uppercase text-right"><span>Distance: <%=distances[i].toFixed(1)%> km</span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <%}%>
+          </div>
         </div>
         <br><br><br>
         <footer class="bg-white sticky-footer">
@@ -180,6 +215,10 @@
         var fileName = e.target.files[0].name;
         $('.custom-file-label').html(fileName);
       });
+
+      function renderAll() {
+        $('.all-printers').removeAttr('hidden')
+      }
     </script>
 </body>
 
