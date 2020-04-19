@@ -11,7 +11,8 @@ let userSchema = new mongoose.Schema({
   contact: String,
   uploads: [{type: mongoose.Schema.Types.ObjectId, ref: 'uploads'}],
   designid: [String],
-  flag: String
+  flag: String,
+  orders: [String]
 })
 
 userSchema.plugin(passportLocalMongoose);

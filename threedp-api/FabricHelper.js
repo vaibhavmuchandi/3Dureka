@@ -243,7 +243,7 @@ function createOrder(req, res, doc) {
             var request = {
                 chaincodeId: 'threedpcc',
                 fcn: 'createOrder',
-                args: [doc.orderID, doc.designID, doc.customerID, doc.quantity, doc.printerID, doc.currentStatus, doc.itemsProcured],
+                args: [doc.orderID, doc.designID, doc.customerID, doc.quantity, doc.printerID],
                 chainId: 'threedpchannel',
                 txId: tx_id
             };
@@ -589,7 +589,7 @@ function changeStatus(req, res, doc) {
             ) {
                 isProposalGood = true;
                 console.log("Transaction proposal was good");
-                res.send({ code: "200", message: "Status updated" });
+                res.render('itemsprocured', {message: 'Status updated!'})
             } else {
                 res.send({ code: "500", message: proposalResponses[0].response.message });
                 console.error("Transaction proposal was bad");
@@ -767,7 +767,7 @@ function addProcurement(req, res, doc) {
             ) {
                 isProposalGood = true;
                 console.log("Transaction proposal was good");
-                res.send(doc);
+                res.render('itemsprocured', {message: 'Material details added!'});
             } else {
                 res.send({ code: "500", message: proposalResponses[0].response.message });
                 console.error("Transaction proposal was bad");

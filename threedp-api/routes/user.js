@@ -9,7 +9,8 @@ const GridFsStorage = require('multer-gridfs-storage');
 const Grid = require('gridfs-stream');
 const router = express.Router();
 const User = require('../models/user');
-//const fabrichelper = require('../FabricHelper')
+const fabrichelper = require('../FabricHelper')
+const app = express()
 
 //Create storage engine
 const storage = new GridFsStorage({
@@ -125,7 +126,7 @@ router.post('/place-order/confirm-order', isLoggedIn, (req, res) => {
   })
 });
 
-router.post('/place-order/success', (req, res)=> {
+router.post('/place-order/success', async (req, res)=> {
   let orderid = makeid(4)
   let designId = req.body.designid;
   let userId = req.body.userid;
@@ -133,12 +134,33 @@ router.post('/place-order/success', (req, res)=> {
   let coordinates = req.body.coordinates.split(',');
   let address2 = req.body.address2;
   let quantity = req.body.quantity;
+  let printers = await User.find({flag: 'printer'}, 'coordinates location', (err, printers) => {
+  })
+  let distance = []
+  for(let i in printers) {
+    distance.push(calcDist(coordinates, printers[i].coordinates))
+  }
+  console.log(distance);
+  min = Math.min(...distance);
+  let printerid = printers[distance.indexOf(min)]._id
+  app.set('orderid', orderid)
   let doc = {
     'orderID' : orderid,
     'designID' : designId,
-    'userID' : userId,
-    'quantity' : quantity
+    'customerID' : userId.toString(),
+    'quantity' : quantity,
+    'printerID' : printerid.toString()
   }
+
+  let printer = await User.findOneAndUpdate({_id: printerid},{$push: {orders: orderid}}, (err, printer) => {
+    if (err){
+      console.log(err)
+    } else {
+      console.log(printer)
+    }
+  })
+
+  //fabrichelper.createOrder(req, res, doc)
 
 });
 
