@@ -58,7 +58,7 @@ router.get('/dashboard/print-history',function(req,res){
 });
 
 router.get('/dashboard/order-details',function(req,res){
-  res.render('itemsprocured',{message:""});
+  res.render('itemsprocured',{message:"", orderid:""});
 });
 
 
@@ -72,7 +72,7 @@ router.post('/print/options', (req, res) => {
 })
 
 router.get('/print/addprocurement', (req, res) => {
-  res.render('itemsprocured', {message: ""})
+  res.render('itemsprocured', {message: "", orderid:""})
 })
 
 router.post('/print/addprocurement', (req, res) => {
@@ -82,25 +82,25 @@ router.post('/print/addprocurement', (req, res) => {
     'orderID' : orderId.toString(),
     'items' : Items.toString()
   }
-  //fabrichelper.addProcurement(res, req, doc)
+  fabrichelper.addProcurement(req, res, doc)
 })
 
 router.get('/print/addtracking', (req, res,) => {
-  res.render('itemsprocured', {message: ''})
+  res.render('itemsprocured', {message: '', orderid: ""})
 })
 
 router.post('/print/addtracking', (req, res) => {
   let orderid = req.body.orderid
-  let Status = "Shipped with trackin details"+req.body.tracking
+  let Status = "Order has been shipped with tracking details: "+req.body.tracking
   let doc = {
     'orderID' : orderid,
     'status' : Status
   }
-  //fabrichelper.changeStatus(req, res, doc)
+  fabrichelper.changeStatus(req, res, doc)
 })
 
 router.get('/print/startprinting', (req, res) => {
-  res.render('itemsprocured', {message: ""})
+  res.render('itemsprocured', {message: "", orderid: ""})
 })
 
 router.post('/print/startprinting', (req, res) => {
@@ -108,11 +108,11 @@ router.post('/print/startprinting', (req, res) => {
     'orderID' : req.body.orderid,
     'status' : 'Printing Started!'
   }
-  //fabrichelper.changeStatus(req, res, doc)
+  fabrichelper.changeStatus(req, res, doc)
 })
 
 router.get('/print/endprinting', (req, res) => {
-  res.render('itemsprocured', {message: ""})
+  res.render('itemsprocured', {message: "", orderid: ""})
 })
 
 router.post('/print/endprinting', (req, res) => {
@@ -120,7 +120,7 @@ router.post('/print/endprinting', (req, res) => {
     'orderID' : req.body.orderid,
     'status' : 'Printing Stopped!'
   }
-  //fabrichelper.changeStatus(req, res, doc)
+  fabrichelper.changeStatus(req, res, doc)
 })
 
 router.post('/file', async(req, res) => {
@@ -138,15 +138,13 @@ function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   }
-  req.session.returnTo = req.originalUrl;
   res.redirect('/printer/login');
 }
 
 function isPrinter(req, res, next) {
   if(req.user.flag == 'printer')
     return next();
-  res.redirect(req.session.returnTo || '/printer/login');
-  delete req.session.returnTo;
+  res.redirect('/printer/login');
 }
 
 

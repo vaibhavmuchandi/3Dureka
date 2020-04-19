@@ -9,7 +9,7 @@ const GridFsStorage = require('multer-gridfs-storage');
 const Grid = require('gridfs-stream');
 const router = express.Router();
 const User = require('../models/user');
-//const fabrichelper = require('../FabricHelper')
+const fabrichelper = require('../FabricHelper')
 const app = express()
 
 //Create storage engine
@@ -92,8 +92,7 @@ router.post('/upload', upload.single('file'), (req, res) => {
     'ownerName' : Ownername,
     'ownerEmail' : Owneremail
   }
-  //fabrichelper.registerDesign(req, res, doc)
-  res.redirect('/user/dashboard')
+  fabrichelper.registerDesign(req, res, doc)
 });
 
 router.get('/dashboard/order-details', (req, res) => {
@@ -151,7 +150,7 @@ router.post('/place-order/success', async (req, res)=> {
     'orderID' : orderid,
     'designID' : designId,
     'customerID' : userId.toString(),
-    'quantity' : quantity,
+    'quantity' : quantity.toString(),
     'printerID' : printerid.toString()
   }
 
@@ -174,8 +173,7 @@ router.post('/place-order/success', async (req, res)=> {
     'address2' : address2,
     'quantity' : quantity
   }
-  res.render('order-success', {details: details})
-  //fabrichelper.createOrder(req, res, doc)
+  fabrichelper.createOrder(req, res, doc)
 
 });
 
@@ -205,7 +203,7 @@ router.post('/orders/getstatus', async (req, res) => {
     'orderID' : req.body.orderid,
     'orders' : req.body.orders
   }
-  //fabrichelper.getStatus(req, res, doc)
+  fabrichelper.getStatus(req, res, doc)
 })
 
 router.get('/orders/gethistory', async (req, res) => {
@@ -223,7 +221,7 @@ router.post('/orders/gethistory', async (req, res) => {
     'orderID' : req.body.orderid,
     'orders' : req.body.orders
   }
-  //fabrichelper.getOrderHistory(req, res, doc)
+  fabrichelper.getOrderHistory(req, res, doc)
 })
 
 
@@ -251,15 +249,13 @@ function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   }
-  req.session.returnTo = req.originalUrl;
   res.redirect('/user/login');
 }
 
 function isUser(req, res, next) {
   if(req.user.flag == 'user')
     return next();
-  res.redirect(req.session.returnTo || '/user/login')
-  delete req.session.returnTo;
+  res.redirect('/user/login')
 }
 
 function makeid(length) {
