@@ -58,17 +58,17 @@ router.get('/dashboard/print-history',function(req,res){
 });
 
 router.get('/dashboard/order-details',function(req,res){
-  res.render('itemsprocured');
+  res.render('itemsprocured',{message:""});
 });
 
 
 router.get('/print/options', (req, res) => {
-  res.render('itemsprocured', {orderid: ""})
+  res.render('itemsprocured', {orderid: "",message:""})
 })
 
 router.post('/print/options', (req, res) => {
   let orderid = req.body.orderid
-  res.render('itemsprocured', {orderid: orderid})
+  res.render('itemsprocured', {orderid: orderid,message:""})
 })
 
 router.get('/print/addprocurement', (req, res) => {
@@ -79,8 +79,8 @@ router.post('/print/addprocurement', (req, res) => {
   let orderId = req.body.orderid
   let Items = req.body.materials+", "+req.body.quantity+" "
   let doc = {
-    'orderID' : orderId,
-    'items' : Items
+    'orderID' : orderId.toString(),
+    'items' : Items.toString()
   }
   //fabrichelper.addProcurement(res, req, doc)
 })
@@ -100,7 +100,7 @@ router.post('/print/addtracking', (req, res) => {
 })
 
 router.get('/print/startprinting', (req, res) => {
-  res.render('itemsprocured', {message: ''})
+  res.render('itemsprocured', {message: ""})
 })
 
 router.post('/print/startprinting', (req, res) => {
@@ -112,7 +112,7 @@ router.post('/print/startprinting', (req, res) => {
 })
 
 router.get('/print/endprinting', (req, res) => {
-  res.render('itemsprocured', {message: ''})
+  res.render('itemsprocured', {message: ""})
 })
 
 router.post('/print/endprinting', (req, res) => {

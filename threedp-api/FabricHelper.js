@@ -442,7 +442,7 @@ function getStatus(req, res, doc) {
                 console.log("Response is ", query_responses[0].toString())
                 var result = JSON.parse(query_responses[0]);
                 let Orders = doc.orders.split(',') 
-                res.render('placed-orders', {orders: Orders, details: result})
+                res.render('placed-orders', {orders: Orders, details:{}, currentdetails: result})
             }
         } else {
             console.log("No payloads were returned from query");
@@ -511,7 +511,7 @@ function getOrderHistory(req, res, doc) {
                     console.log("Response is ", query_responses[0].toString());
                     var result = JSON.parse(query_responses[0]);
                     let Orders = doc.orders.split(',') 
-                    res.render('placed-orders', {orders: Orders, details: result})
+                    res.render('placed-orders', {orders: Orders,currentdetails:{}, details: result})
 
                 }
             } else {
@@ -588,7 +588,7 @@ function changeStatus(req, res, doc) {
             ) {
                 isProposalGood = true;
                 console.log("Transaction proposal was good");
-                res.render('itemsprocured', {message: 'Status updated!'})
+                res.render('itemsprocured', {message: "Successful!", orderid: doc.orderID})
             } else {
                 res.send({ code: "500", message: proposalResponses[0].response.message });
                 console.error("Transaction proposal was bad");
@@ -744,6 +744,7 @@ function addProcurement(req, res, doc) {
             // get a transaction id object based on the current user assigned to fabric client
             tx_id = fabric_client.newTransactionID();
             console.log("Assigning transaction_id: ", tx_id._transaction_id);
+
             var request = {
                 chaincodeId: 'threedpcc',
                 fcn: 'addProcurement',
@@ -766,7 +767,7 @@ function addProcurement(req, res, doc) {
             ) {
                 isProposalGood = true;
                 console.log("Transaction proposal was good");
-                res.render('itemsprocured', {message: 'Material details added!'});
+                res.render('itemsprocured', {message: "Successfully added items!", orderid: doc.orderID})
             } else {
                 res.send({ code: "500", message: proposalResponses[0].response.message });
                 console.error("Transaction proposal was bad");
@@ -798,7 +799,7 @@ function addProcurement(req, res, doc) {
                 // get an eventhub once the fabric client has a user assigned. The user
                 // is required bacause the event registration must be signed
                 let event_hub = fabric_client.newEventHub();
-                event_hub.setPeerAddr("grpc://192.168.99.100:8051");
+                event_hub.setPeerAddr("grpc://192.168.99.100:8053");
 
                 // using resolve the promise so that result status may be processed
                 // under the then clause rather than having the catch clause process

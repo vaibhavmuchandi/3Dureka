@@ -167,7 +167,7 @@
               <input type="text" name="coordinates" value="<%=details.coordinates%>" hidden>
               <input type="text" name="quantity" value="<%=details.quantity%>" hidden>
               <input type="text" name="printer" id="selected-printer" value="<%=JSON.stringify(printer)%>" hidden>
-              <button class="btn btn-danger">Confirm Order</button>
+              <button class="btn btn-danger" id="confirm-order">Confirm Order</button>
             </form>
           </div>
           <br><br>
@@ -238,7 +238,8 @@
 
       $('#place-order').click(function() {
         let printer = $("input[name='print']:checked").val();
-        $("#selected-printer").val(printer);
+        $('#selected-printer').val(printer);
+        $('#confirm-order').click();
       })
     </script>
 </body>

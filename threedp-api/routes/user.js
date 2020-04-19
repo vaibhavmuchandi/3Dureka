@@ -125,14 +125,6 @@ router.post('/place-order/confirm-order', (req, res) => {
     min = Math.min(...distance);
     res.locals.printers = printers;
     res.locals.distances = distance;
-    let details = {
-      'designid' : designId,
-      'userid' : userId,
-      'address1' : address1,
-      'address2' : address2,
-      'coordinates' : coordinates,
-      'quantity' : quantity
-    }
     res.render('confirm-order', {details: details, printer: printers[distance.indexOf(min)], distance: Math.round(min)})
   })
 });
@@ -150,8 +142,8 @@ router.post('/place-order/success', async (req, res)=> {
   let address2 = req.body.address2;
   let quantity = req.body.quantity;
   let selectedPrinter = JSON.parse(req.body.printer)
-  console.log(printer)
-  printerID = selectedPrinter._id;
+  console.log(selectedPrinter)
+  printerid = selectedPrinter._id;
   app.set('orderid', orderid)
   let doc = {
     'orderID' : orderid,
@@ -177,7 +169,15 @@ router.post('/place-order/success', async (req, res)=> {
     }
   })
 
-  fabrichelper.createOrder(req, res, doc)
+  let details = {
+    'designID' : designId,
+    'orderID' : orderid,
+    'address1' : address1,
+    'address2' : address2,
+    'quantity' : quantity
+  }
+  res.render('order-success', {details: details})
+  //fabrichelper.createOrder(req, res, doc)
 
 });
 
@@ -188,7 +188,7 @@ router.get('/orders-placed', async (req, res) => {
       console.log(err)
     }
   })
-  res.render('placed-orders',{orders: users.orders, details: {}})
+  res.render('placed-orders',{orders: users.orders, details: {},currentdetails: {}})
 })
 
 router.get('/orders/getstatus', async (req, res) => {
@@ -198,7 +198,7 @@ router.get('/orders/getstatus', async (req, res) => {
       console.log(err)
     }
   })
-  res.render('placed-orders',{orders: users.orders, details: {}})
+  res.render('placed-orders',{orders: users.orders, details: {}, currentdetails:{}})
 })
 
 router.post('/orders/getstatus', async (req, res) => {
@@ -206,7 +206,7 @@ router.post('/orders/getstatus', async (req, res) => {
     'orderID' : req.body.orderid,
     'orders' : req.body.orders
   }
-  fabrichelper.getStatus(req, res, doc)
+  //fabrichelper.getStatus(req, res, doc)
 })
 
 router.get('/orders/gethistory', async (req, res) => {
@@ -216,7 +216,7 @@ router.get('/orders/gethistory', async (req, res) => {
       console.log(err)
     }
   })
-  res.render('placed-orders',{orders: users.orders, details: {}})
+  res.render('placed-orders',{orders: users.orders, details: {}, currentdetails: {}})
 })
 
 router.post('/orders/gethistory', async (req, res) => {
@@ -224,7 +224,7 @@ router.post('/orders/gethistory', async (req, res) => {
     'orderID' : req.body.orderid,
     'orders' : req.body.orders
   }
-  fabrichelper.getOrderHistory(req, res, doc)
+  //fabrichelper.getOrderHistory(req, res, doc)
 })
 
 

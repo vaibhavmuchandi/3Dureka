@@ -40,7 +40,7 @@ Fabric_Client.newDefaultKeyValueStore({
         verify: false
     };
     // be sure to change the http to https when the CA is running TLS enabled
-    fabric_ca_client = new Fabric_CA_Client('http://192.168.99.100:7054', tlsOptions, 'ca.printer.threedp.com', crypto_suite);
+    fabric_ca_client = new Fabric_CA_Client('http://192.168.99.100:8054', tlsOptions, 'ca.printer.threedp.com', crypto_suite);
 
     // first check to see if the admin is already enrolled
     return fabric_client.getUserContext('printerUser', true);
