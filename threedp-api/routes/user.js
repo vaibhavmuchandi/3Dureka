@@ -155,19 +155,15 @@ router.post('/place-order/success', async (req, res)=> {
     'printerID' : printerid.toString()
   }
 
-  let printer = await User.findOneAndUpdate({_id: printerid},{$push: {orders: orderid}}, (err, printer) => {
+  let printer = await User.findOneAndUpdate({_id: printerid},{$addToSet: {orders: orderid}}, { safe: true, upsert: true }, (err, printer) => {
     if (err){
       console.log(err)
-    } else {
-
     }
   })
 
-  let customer = await User.findOneAndUpdate({_id: userId}, {$push: {orders: orderid}}, (err, cust) => {
+  let customer = await User.findOneAndUpdate({_id: userId}, {$addToSet: {orders: orderid}}, { safe: true, upsert: true }, (err, cust) => {
     if(err){
       console.log(err)
-    } else {
-
     }
   })
 
@@ -190,6 +186,7 @@ router.get('/orders-placed', async (req, res) => {
       console.log(err)
     }
   })
+  orders = new Set(users.orders)
   res.render('placed-orders',{orders: users.orders, details: {},currentdetails: {}})
 })
 

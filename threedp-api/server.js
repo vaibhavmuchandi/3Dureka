@@ -64,9 +64,26 @@ app.get('/user/dashboard', isLoggedIn, (req, res) => {
 });
 
 
-app.get('/testroutes', (req, res)=>{
-  console.log(req.user._id)
-})
+app.get('/printer/download-file', (req, res) => {
+//to check if fie exist
+  gfs.files.find({_id: mongoose.Types.ObjectId("5e9c26bcc7888f389093cc5f")}).toArray(function(err, files){
+      if(!files || files.length === 0){
+          return res.status(404).json({
+              responseCode: 1,
+              responseMessage: "error"
+          });
+      }
+      // create read stream
+      var readstream = gfs.createReadStream({
+          filename: files[0].filename,
+          root: "uploads"
+      });
+      // set the proper content type
+      res.set('Content-Type', files[0].contentType)
+      // Return response
+      return readstream.pipe(res);
+  });
+});
 
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {
