@@ -2,129 +2,155 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Printer's Portal</title>
-    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css?h=a8d4bee654e7f373adc6e3ffc7b44ff5">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
-    <link rel="stylesheet" href="/css/styles.min.css?h=2cde21d5c8207787afeb66875b7f5c65">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <title>Printer's Portal</title>
+  <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css?h=a8d4bee654e7f373adc6e3ffc7b44ff5">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+  <link rel="stylesheet" href="/css/styles.min.css?h=2cde21d5c8207787afeb66875b7f5c65">
 
 </head>
 
 <body id="page-top">
-    <div id="wrapper">
-        <nav  class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
-            <div class="container-fluid d-flex flex-column p-0">
-                <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
+  <div id="wrapper">
+    <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
+      <div class="container-fluid d-flex flex-column p-0">
+        <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
 
-                    <div class="sidebar-brand-text mx-3"><span>I am 3D</span></div>
-                </a>
-                <hr class="sidebar-divider my-0">
-                <ul class="nav navbar-nav text-light" id="accordionSidebar">
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="/"><i class="fas fa-home"></i><span>Home</span></a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="/printhistory"><i class="fas fa-history"></i><span>Print History</span></a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link " href="/pendingorders"><i class="fas fa-clock"></i><span>Pending orders</span></a></li>
-                                </ul>
+          <div class="sidebar-brand-text mx-3"><span>I am 3D</span></div>
+        </a>
+        <hr class="sidebar-divider my-0">
+        <ul class="nav navbar-nav text-light" id="accordionSidebar">
+          <li class="nav-item" role="presentation"><a class="nav-link" href="/"><i class="fas fa-home"></i><span>Home</span></a></li>
+          <li class="nav-item" role="presentation"><a class="nav-link" href="/printer/dashboard/print-history"><i class="fas fa-history"></i><span>Print History</span></a></li>
+          <li class="nav-item" role="presentation"><a class="nav-link " href="/printer/dashboard"><i class="fas fa-clock"></i><span>Pending orders</span></a></li>
+        </ul>
 
+    </nav>
+    <div id="content-wrapper">
+      <div id="content">
+        <nav class=" navbar navbar-light navbar-expand  shadow mb-4 topbar static-top">
+          <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
+            <form class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+              <div class="input-group"><input class="bg-light form-control border-3 small" type="text" placeholder="Search for ...">
+                <div class="input-group-append"><button class="btn btn-danger py-0" type="button"><i class="fas fa-search"></i></button></div>
+              </div>
+            </form>
+            <ul class="nav navbar-nav flex-nowrap ml-auto">
+              <div class="d-none d-sm-block topbar-divider"></div>
+              <li class="nav-item dropdown no-arrow" role="presentation">
+                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><span class="d-none d-lg-inline mr-2 text-gray-600 small"><%=user.username%></span><img
+                      class="border rounded-circle img-profile" src="/img/avatars/avatar3.jpeg?h=0ecc82101fb9a10ca459432faa8c0656"></a>
+                  <div class="dropdown-menu shadow dropdown-menu-right animated--grow-in" role="menu"><a class="dropdown-item" role="presentation" href="#"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Profile</a><a
+                      class="dropdown-item" role="presentation" href="#"><i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Settings</a>
+                    <a class="dropdown-item" role="presentation" href="#"><i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Activity log</a>
+                    <div class="dropdown-divider"></div><a class="dropdown-item" role="presentation" href="/logout"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Logout</a>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
         </nav>
-<div id="content-wrapper" style="padding-left: 80px;">
-  <div id="content">
-  <br>
-    <div class="container-fluid">
-      <div class="container">
-        <%if(message.length !=0){%>
-        <div class="alert alert-success">
-          <%=message%>
-        </div>
-        <% } %>
-	<div class="row">
-      <div class="col-lg-12">
-        <div class="well well-sm">
-          <div style="padding-left: 120px;">
-          <form class="form-horizontal" action="/printer/print/addprocurement" method="post">
-          <fieldset>
-            <legend>Items Procured Entry</legend>
+        <br>
+        <div class="container-fluid">
+          <div class="container">
+            <%if(message.length !=0){%>
+            <div class="alert alert-success">
+              <%=message%>
+            </div>
+            <% } %>
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="well well-sm">
+                  <div style="padding-left: 120px;">
+                    <form class="form-horizontal" action="/printer/print/addprocurement" method="post">
+                      <fieldset>
+                        <legend>Items Procured Entry</legend>
 
-            <!-- material input-->
-            <div class="form-group">
-              <label class="col-md-3 control-label" for="name">Material's</label>
-              <div class="col-md-9">
-                <input id="name" name="materials" type="text" placeholder="Enter Materials" class="form-control">
-              </div>
-            </div>
-            <!-- quantity input-->
-            <div class="form-group">
-              <label class="col-md-3 control-label" for="email">Quantity</label>
-              <div class="col-md-9">
-                <input id="email" name="quantity" type="text" placeholder="Enter the quantity" class="form-control">
-              </div>
-            </div>
-            <input type="text" name="orderid" value="<%=orderid%>" hidden>
-            <!-- Form actions -->
-            <div class="form-group">
-              <div class="col-md-6 text-right">
-                <button type="submit" class="btn btn-danger btn-md">Submit</button>
+                        <!-- material input-->
+                        <div class="form-group">
+                          <label class="col-md-3 control-label" for="name">Materials</label>
+                          <div class="col-md-9">
+                            <input id="name" name="materials" type="text" placeholder="Enter Materials" class="form-control">
+                          </div>
+                        </div>
+                        <!-- quantity input-->
+                        <div class="form-group">
+                          <label class="col-md-3 control-label" for="email">Quantity</label>
+                          <div class="col-md-9">
+                            <input id="email" name="quantity" type="text" placeholder="Enter the quantity" class="form-control">
+                          </div>
+                        </div>
+                        <input type="text" name="orderid" value="<%=orderid%>" hidden>
+                        <!-- Form actions -->
+                        <div class="form-group">
+                          <div class="col-md-6">
+                            <button type="submit" class="btn btn-danger btn-md">Submit</button>
 
-              </div>
-            </div>
-          </fieldset>
-          </form>
-          <form class="form-horizontal" action="/printer/print/addtracking" method="post">
-          <fieldset>
-            <legend>Tracking details update</legend>
-            <input type="text" name="orderid" value="<%=orderid%>" hidden>
-            <!-- quantity input-->
-            <div class="form-group">
-              <label class="col-md-6 control-label" for="email">Tracking Number and Logistic name</label>
-              <div class="col-md-9">
-                <input id="email" name="tracking" type="text" placeholder="Enter tracing details" class="form-control">
-              </div>
-            </div>
+                          </div>
+                        </div>
+                      </fieldset>
+                    </form>
+                    <form class="form-horizontal" action="/printer/print/addtracking" method="post">
+                      <fieldset>
+                        <legend>Tracking details update</legend>
+                        <input type="text" name="orderid" value="<%=orderid%>" hidden>
+                        <!-- quantity input-->
+                        <div class="form-group">
+                          <label class="col-md-6 control-label" for="email">Tracking Number and Logistic name</label>
+                          <div class="col-md-9">
+                            <input id="email" name="tracking" type="text" placeholder="Enter tracing details" class="form-control">
+                          </div>
+                        </div>
 
 
-            <!-- Form actions -->
-            <div class="form-group">
-              <div class="col-md-6 text-right">
-                <button type="submit" class="btn btn-danger btn-md">Submit</button>
+                        <!-- Form actions -->
+                        <div class="form-group">
+                          <div class="col-md-6">
+                            <button class="btn btn-danger btn-md">Submit</button>
+                          </div>
+                        </div>
+                      </fieldset>
+                    </form>
+                  </div>
+                  <div class="row">
+                    <div class="col-4">
+
+                    </div>
+                    <div class="col-2">
+                      <form action="/printer/print/startprinting" method="POST">
+                        <input type="text" name="orderid" value="<%=orderid%>" hidden>
+                        <button type="submit" class="btn btn-danger ">Start Printing</button>
+                      </form>
+                    </div>
+                    <div class="col-2">
+                      <form action="/printer/print/endprinting" method="POST">
+                        <input type="text" name="orderid" value="<%=orderid%>" hidden>
+                        <button type="submit" class="btn btn-danger">End Printing</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            </div>
-          </fieldset>
-          </form>
-        </div>
-        <div class="row">
-          <div class="col">
-            <form action="/printer/print/startprinting" method="POST">
-              <input type="text" name="orderid" value="<%=orderid%>" hidden>
-              <button type="submit" class="btn btn-danger btn-block">Start Printing</button>
-            </form>
           </div>
-          <div class="col">
-            <form action="/printer/print/endprinting" method="POST">
-              <input type="text" name="orderid" value="<%=orderid%>" hidden>
-              <button type="submit" class="btn btn-danger btn-block">End Printing</button>
-            </form>
-          </div>
-        </div>
         </div>
       </div>
-	</div>
-</div>
-
-            </div>
+      <br><br><br><br>
+      <footer class="bg-white sticky-footer">
+        <div class="container my-auto">
+          <div class="text-center my-auto copyright"><span>Copyright © I am 3D 2020</span></div>
         </div>
-        <footer class="bg-white sticky-footer">
-            <div class="container my-auto">
-                <div class="text-center my-auto copyright"><span>Copyright © I am 3D 2020</span></div>
-            </div>
-        </footer>
-    </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a></div>
-    <script src="https://kit.fontawesome.com/061e61c96e.js" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
-    <script src="assets/js/script.min.js?h=cda46db5f8853791105ff4715b7208f3"></script>
+      </footer>
+    </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+  </div>
+  <script src="https://kit.fontawesome.com/061e61c96e.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+  <script src="assets/js/script.min.js?h=cda46db5f8853791105ff4715b7208f3"></script>
 </body>
 
 </html>

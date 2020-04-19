@@ -22,7 +22,7 @@ router.post('/login', (req, res, next) => {
       if (err) {
         return next(err);
       }
-      res.redirect(req.session.returnTo || '/printer/dashboard');
+      res.redirect('/printer/dashboard');
       delete req.session.returnTo;
     });
   })(req, res, next);
