@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <title>Dashboard - Brand</title>
+  <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css?h=a8d4bee654e7f373adc6e3ffc7b44ff5">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+  <link rel="stylesheet" href="/css/styles.min.css?h=2cde21d5c8207787afeb66875b7f5c65">
+</head>
+
+<body id="page-top">
+  <div id="wrapper">
+    <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
+      <div class="container-fluid d-flex flex-column p-0">
+        <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
+          <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-laugh-wink"></i></div>
+          <div class="sidebar-brand-text mx-3"><span>Brand</span></div>
+        </a>
+        <hr class="sidebar-divider my-0">
+        <ul class="nav navbar-nav text-light" id="accordionSidebar">
+          <li class="nav-item" role="presentation"><a class="nav-link active" href="index.html"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
+          <li class="nav-item" role="presentation"><a class="nav-link" href="profile.html"><i class="fas fa-user"></i><span>Profile</span></a></li>
+          <li class="nav-item" role="presentation"><a class="nav-link" href="/user/orders-placed"><i class="fas fa-table"></i><span>Order Details</span></a></li>
+        </ul>
+        <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
+      </div>
+    </nav>
+
+        <div class="container" style="margin-top: 20px;">
+            <h6 class="text-dark-mb-4" style="text-align: right;">Logged in as: test</h6>
+            <h3 class="text-dark mb-4">Orders</h3>
+            <div class="card shadow">
+                <div class="card-body">
+                    <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                        <table class="table dataTable my-0" id="dataTable">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Status</th>
+                                    <th>History</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% for(let i in orders){%>
+                                <tr>
+                                    <td><%=orders[i]%></td>
+                                    <td><form action="/user/orders/getstatus" method="POST"><input type="text" name="orders" value="<%=orders%>" hidden><input type="text" name="orderid" value="<%=orders[i]%>" hidden><button class = "btn btn-danger btn-md">Get current status</button></form></td>
+                                    <td><form action="/user/orders/gethistory" method="POST"><input type="text" name="orders" value="<%=orders%>" hidden><input type="text" name="orderid" value="<%=orders[i]%>" hidden><button class="btn btn-danger btn-md">Get order history</button></form></td>
+                                </tr>
+                                <%}%>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 align-self-center">
+                            <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">Results</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col">
+                    <div class="card-shadow">
+                        <div class="card-header py-1">
+                            <p class="text-primary m-0 font-weight-bold">Current Status</p>
+                        </div>
+                        <%for(let i in details){%>
+                        <div class="card-body">
+                            <strong>Order ID: </strong><%=details[i].orderID%> <br>
+                            <strong>Design ID: </strong><%=details[i].designID%> <br>
+                            <strong>Quantity: </strong><%=details[i].quantity%>
+                            <strong>Status: </strong><%=details[i].currentStatus%> <br>
+                            <strong>Items Procured: </strong><%=details[i].itemsProcured%> <br>
+                        </div>
+                        <% } %>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card-shadow">
+                        <div class="card-header py-1">
+                            <p class="text-primary m-0 font-weight-bold">Order history</p>
+                        </div>
+                        <%for(let i in details){%>
+                            <div class="card-body">
+                                <strong>Txn ID: </strong><%=details[i].TxId%> <br>
+                                <strong>Order ID: </strong><%=details[i].Value.orderID%> <br>
+                                <strong>Design ID: </strong><%=details[i].Value.designID%> <br>
+                                <strong>Quantity: </strong><%=details[i].Value.quantity%>
+                                <strong>Status: </strong><%=details[i].Value.currentStatus%> <br>
+                                <strong>Items Procured: </strong><%=details[i].Value.itemsProcured%> <br>
+                            </div>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+    <footer class="bg-white sticky-footer">
+        <div class="container my-auto">
+            <div class="text-center my-auto copyright"><span>Copyright © Brand 2020</span></div>
+        </div>
+    </footer>
+</div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+<script src="assets/js/script.min.js?h=cda46db5f8853791105ff4715b7208f3"></script>
+</body>
+
+</html>

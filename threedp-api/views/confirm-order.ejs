@@ -159,7 +159,16 @@
             </div>
           </div>
           <div class="row justify-content-center">
-            <button class="btn btn-danger">Confirm Order</button>
+            <form action="/user/place-order/success" method="POST">
+              <input type="text" name="designid" value="<%=details.designid%>" hidden>
+              <input type="text" name="userid" value="<%=details.userid%>" hidden>
+              <input type="text" name="address1" value="<%=details.address1%>" hidden>
+              <input type="text" name="address2" value="<%=details.address2%>" hidden>
+              <input type="text" name="coordinates" value="<%=details.coordinates%>" hidden>
+              <input type="text" name="quantity" value="<%=details.quantity%>" hidden>
+              <input type="text" name="printer" id="selected-printer" value="<%=JSON.stringify(printer)%>" hidden>
+              <button class="btn btn-danger">Confirm Order</button>
+            </form>
           </div>
           <br><br>
           <div class="row justify-content-center">
@@ -189,12 +198,19 @@
                         Email<div class="text-dark font-weight-bold h5 mb-0"><span><%=printers[i].email%></span></div>
                         <div class="text-uppercase text-right"><span>Distance: <%=distances[i].toFixed(1)%> km</span></div>
                       </div>
+                      <div class="col-auto">
+                        <div class="custom-control custom-radio"><input class="custom-control-input" name="print" type="radio" id="radio<%=i%>" value="<%=JSON.stringify(printers[i])%>"><label class="custom-control-label" for="radio<%=i%>"></label>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
             <%}%>
+            <div class="row justify-content-center">
+              <button id="place-order" class="btn btn-danger">Place Order</button>
+            </div>
           </div>
         </div>
         <br><br><br>
@@ -219,6 +235,11 @@
       function renderAll() {
         $('.all-printers').removeAttr('hidden')
       }
+
+      $('#place-order').click(function() {
+        let printer = $("input[name='print']:checked").val();
+        $("#selected-printer").val(printer);
+      })
     </script>
 </body>
 

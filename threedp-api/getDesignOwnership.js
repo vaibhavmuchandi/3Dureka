@@ -54,8 +54,8 @@ Fabric_Client.newDefaultKeyValueStore({ path: store_path
 	const request = {
 		//targets : --- letting this default to the peers assigned to the channel
 		chaincodeId: 'threedpcc',
-		fcn: 'getOwnershipDetails',
-		args: ['emL3rVJqsy7MR9hv']
+		fcn: 'getStatus',
+		args: ['aPyJ']
 	};
 
 	// send the query proposal to the peer
@@ -76,3 +76,4 @@ Fabric_Client.newDefaultKeyValueStore({ path: store_path
 }).catch((err) => {
 	console.error('Failed to query successfully :: ' + err);
 });
+

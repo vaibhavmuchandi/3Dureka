@@ -125,9 +125,21 @@ router.post('/place-order/confirm-order', (req, res) => {
     min = Math.min(...distance);
     res.locals.printers = printers;
     res.locals.distances = distance;
-    res.render('confirm-order', {printer: printers[distance.indexOf(min)], distance: Math.round(min)})
+    let details = {
+      'designid' : designId,
+      'userid' : userId,
+      'address1' : address1,
+      'address2' : address2,
+      'coordinates' : coordinates,
+      'quantity' : quantity
+    }
+    res.render('confirm-order', {details: details, printer: printers[distance.indexOf(min)], distance: Math.round(min)})
   })
 });
+
+router.get('/place-order/success', (req, res) =>{
+  res.render('order-success', {details: {}})
+})
 
 router.post('/place-order/success', async (req, res)=> {
   let orderid = makeid(4)
@@ -137,15 +149,9 @@ router.post('/place-order/success', async (req, res)=> {
   let coordinates = req.body.coordinates.split(',');
   let address2 = req.body.address2;
   let quantity = req.body.quantity;
-  let printers = await User.find({flag: 'printer'}, 'coordinates location', (err, printers) => {
-  })
-  let distance = []
-  for(let i in printers) {
-    distance.push(calcDist(coordinates, printers[i].coordinates))
-  }
-  console.log(distance);
-  min = Math.min(...distance);
-  let printerid = printers[distance.indexOf(min)]._id
+  let selectedPrinter = JSON.parse(req.body.printer)
+  console.log(printer)
+  printerID = selectedPrinter._id;
   app.set('orderid', orderid)
   let doc = {
     'orderID' : orderid,
@@ -159,13 +165,68 @@ router.post('/place-order/success', async (req, res)=> {
     if (err){
       console.log(err)
     } else {
-      console.log(printer)
+
     }
   })
 
-  //fabrichelper.createOrder(req, res, doc)
+  let customer = await User.findOneAndUpdate({_id: userId}, {$push: {orders: orderid}}, (err, cust) => {
+    if(err){
+      console.log(err)
+    } else {
+
+    }
+  })
+
+  fabrichelper.createOrder(req, res, doc)
 
 });
+
+router.get('/orders-placed', async (req, res) => {
+  user = req.user._id;
+  let users = await User.findOne({_id: user}, (err, found) => {
+    if(err){
+      console.log(err)
+    }
+  })
+  res.render('placed-orders',{orders: users.orders, details: {}})
+})
+
+router.get('/orders/getstatus', async (req, res) => {
+  let user = req.user._id;
+  let users = await User.findOne({_id: user}, (err, found) => {
+    if(err){
+      console.log(err)
+    }
+  })
+  res.render('placed-orders',{orders: users.orders, details: {}})
+})
+
+router.post('/orders/getstatus', async (req, res) => {
+  let doc = {
+    'orderID' : req.body.orderid,
+    'orders' : req.body.orders
+  }
+  fabrichelper.getStatus(req, res, doc)
+})
+
+router.get('/orders/gethistory', async (req, res) => {
+  let user = req.user._id;
+  let users = await User.findOne({_id: user}, (err, found) => {
+    if(err){
+      console.log(err)
+    }
+  })
+  res.render('placed-orders',{orders: users.orders, details: {}})
+})
+
+router.post('/orders/gethistory', async (req, res) => {
+  let doc = {
+    'orderID' : req.body.orderid,
+    'orders' : req.body.orders
+  }
+  fabrichelper.getOrderHistory(req, res, doc)
+})
+
 
 function toRadians(deg) {
   return (deg * (Math.PI / 180));
