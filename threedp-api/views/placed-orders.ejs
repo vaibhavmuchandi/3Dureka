@@ -68,15 +68,13 @@
                         <div class="card-header py-1">
                             <p class="text-primary m-0 font-weight-bold">Current Status</p>
                         </div>
-                        <%for(let i in details){%>
                         <div class="card-body">
-                            <strong>Order ID: </strong><%=details[i].orderID%> <br>
-                            <strong>Design ID: </strong><%=details[i].designID%> <br>
-                            <strong>Quantity: </strong><%=details[i].quantity%>
-                            <strong>Status: </strong><%=details[i].currentStatus%> <br>
-                            <strong>Items Procured: </strong><%=details[i].itemsProcured%> <br>
+                            <strong>Order ID: </strong><%=currentdetails.orderID%> <br>
+                            <strong>Design ID: </strong><%=currentdetails.designID%> <br>
+                            <strong>Quantity: </strong><%=currentdetails.quantity%> <br>
+                            <strong>Status: </strong><%=currentdetails.currentStatus%> <br>
+                            <strong>Items Procured: </strong><%=currentdetails.itemsProcured%> <br>
                         </div>
-                        <% } %>
                     </div>
                 </div>
                 <div class="col">
@@ -89,7 +87,7 @@
                                 <strong>Txn ID: </strong><%=details[i].TxId%> <br>
                                 <strong>Order ID: </strong><%=details[i].Value.orderID%> <br>
                                 <strong>Design ID: </strong><%=details[i].Value.designID%> <br>
-                                <strong>Quantity: </strong><%=details[i].Value.quantity%> <br>
+                                <strong>Quantity: </strong><%=details[i].Value.quantity%>  <br>
                                 <strong>Status: </strong><%=details[i].Value.currentStatus%> <br>
                                 <strong>Items Procured: </strong><%=details[i].Value.itemsProcured%> <br>
                             </div>

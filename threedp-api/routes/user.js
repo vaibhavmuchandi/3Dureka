@@ -190,7 +190,7 @@ router.get('/orders-placed', async (req, res) => {
       console.log(err)
     }
   })
-  res.render('placed-orders',{orders: users.orders, details: {}})
+  res.render('placed-orders',{orders: users.orders, details: {},currentdetails: {}})
 })
 
 router.get('/orders/getstatus', async (req, res) => {
@@ -200,7 +200,7 @@ router.get('/orders/getstatus', async (req, res) => {
       console.log(err)
     }
   })
-  res.render('placed-orders',{orders: users.orders, details: {}})
+  res.render('placed-orders',{orders: users.orders, details: {}, currentdetails:{}})
 })
 
 router.post('/orders/getstatus', async (req, res) => {
@@ -218,7 +218,7 @@ router.get('/orders/gethistory', async (req, res) => {
       console.log(err)
     }
   })
-  res.render('placed-orders',{orders: users.orders, details: {}})
+  res.render('placed-orders',{orders: users.orders, details: {}, currentdetails: {}})
 })
 
 router.post('/orders/gethistory', async (req, res) => {

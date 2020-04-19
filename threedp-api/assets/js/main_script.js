@@ -219,8 +219,8 @@
 	// -------------------------------
 	$(".typed").typed({
 		strings: [
-			"You Create.",
-			"We Design.",
+			"You design.",
+			"We print.",
 			
 		],
 		typeSpeed: 100,
