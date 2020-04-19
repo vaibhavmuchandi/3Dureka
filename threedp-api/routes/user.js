@@ -121,10 +121,21 @@ router.post('/place-order/confirm-order', isLoggedIn, (req, res) => {
     }
     console.log(distance);
     min = Math.min(...distance);
-    //res.send(printers[distance.indexOf(min)])
-    res.render('confirm-order', {printer: printers[distance.indexOf(min)], distance: Math.round(min)})
+    let details = {
+      'designid' : designId,
+      'userid' : userId,
+      'address1' : address1,
+      'address2' : address2,
+      'coordinates' : coordinates,
+      'quantity' : quantity
+    }
+    res.render('confirm-order', {details: details, printer: printers[distance.indexOf(min)], distance: Math.round(min)})
   })
 });
+
+router.get('/place-order/success', (req, res) =>{
+  res.render('order-success', {details: {}})
+})
 
 router.post('/place-order/success', async (req, res)=> {
   let orderid = makeid(4)
@@ -156,13 +167,26 @@ router.post('/place-order/success', async (req, res)=> {
     if (err){
       console.log(err)
     } else {
-      console.log(printer)
+      
     }
   })
 
-  //fabrichelper.createOrder(req, res, doc)
+  let customer = await User.findOneAndUpdate({_id: userId}, {$push: {orders: orderid}}, (err, cust) => {
+    if(err){
+      console.log(err)
+    } else {
+
+    }
+  })
+
+  fabrichelper.createOrder(req, res, doc)
 
 });
+
+router.get('/orders-placed', (req, res) => {
+  res.render('placed-orders')
+})
+
 
 function toRadians(deg) {
   return (deg * (Math.PI / 180));

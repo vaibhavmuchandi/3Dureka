@@ -51,76 +51,10 @@
               </li>
               <li class="nav-item dropdown no-arrow mx-1" role="presentation">
                 <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><span class="badge badge-danger badge-counter">3+</span><i class="fas fa-bell fa-fw"></i></a>
-                  <div class="dropdown-menu dropdown-menu-right dropdown-list dropdown-menu-right animated--grow-in" role="menu">
-                    <h6 class="dropdown-header">alerts center</h6>
-                    <a class="d-flex align-items-center dropdown-item" href="#">
-                      <div class="mr-3">
-                        <div class="bg-primary icon-circle"><i class="fas fa-file-alt text-white"></i></div>
-                      </div>
-                      <div><span class="small text-gray-500">December 12, 2019</span>
-                        <p>A new monthly report is ready to download!</p>
-                      </div>
-                    </a>
-                    <a class="d-flex align-items-center dropdown-item" href="#">
-                      <div class="mr-3">
-                        <div class="bg-success icon-circle"><i class="fas fa-donate text-white"></i></div>
-                      </div>
-                      <div><span class="small text-gray-500">December 7, 2019</span>
-                        <p>$290.29 has been deposited into your account!</p>
-                      </div>
-                    </a>
-                    <a class="d-flex align-items-center dropdown-item" href="#">
-                      <div class="mr-3">
-                        <div class="bg-warning icon-circle"><i class="fas fa-exclamation-triangle text-white"></i></div>
-                      </div>
-                      <div><span class="small text-gray-500">December 2, 2019</span>
-                        <p>Spending Alert: We've noticed unusually high spending for your account.</p>
-                      </div>
-                    </a><a class="text-center dropdown-item small text-gray-500" href="#">Show All Alerts</a>
-                  </div>
                 </div>
               </li>
               <li class="nav-item dropdown no-arrow mx-1" role="presentation">
                 <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><i class="fas fa-envelope fa-fw"></i><span class="badge badge-danger badge-counter">7</span></a>
-                  <div class="dropdown-menu dropdown-menu-right dropdown-list dropdown-menu-right animated--grow-in" role="menu">
-                    <h6 class="dropdown-header">alerts center</h6>
-                    <a class="d-flex align-items-center dropdown-item" href="#">
-                      <div class="dropdown-list-image mr-3"><img class="rounded-circle" src="/img/avatars/avatar4.jpeg?h=fefb30b61c8459a66bd338b7d790c3d5">
-                        <div class="bg-success status-indicator"></div>
-                      </div>
-                      <div class="font-weight-bold">
-                        <div class="text-truncate"><span>Hi there! I am wondering if you can help me with a problem I've been having.</span></div>
-                        <p class="small text-gray-500 mb-0">Emily Fowler - 58m</p>
-                      </div>
-                    </a>
-                    <a class="d-flex align-items-center dropdown-item" href="#">
-                      <div class="dropdown-list-image mr-3"><img class="rounded-circle" src="/img/avatars/avatar2.jpeg?h=5d142be9441885f0935b84cf739d4112">
-                        <div class="status-indicator"></div>
-                      </div>
-                      <div class="font-weight-bold">
-                        <div class="text-truncate"><span>I have the photos that you ordered last month!</span></div>
-                        <p class="small text-gray-500 mb-0">Jae Chun - 1d</p>
-                      </div>
-                    </a>
-                    <a class="d-flex align-items-center dropdown-item" href="#">
-                      <div class="dropdown-list-image mr-3"><img class="rounded-circle" src="/img/avatars/avatar3.jpeg?h=c5166867f10a4e454b5b2ae8d63268b3">
-                        <div class="bg-warning status-indicator"></div>
-                      </div>
-                      <div class="font-weight-bold">
-                        <div class="text-truncate"><span>Last month's report looks great, I am very happy with the progress so far, keep up the good work!</span></div>
-                        <p class="small text-gray-500 mb-0">Morgan Alvarez - 2d</p>
-                      </div>
-                    </a>
-                    <a class="d-flex align-items-center dropdown-item" href="#">
-                      <div class="dropdown-list-image mr-3"><img class="rounded-circle" src="/img/avatars/avatar5.jpeg?h=35dc45edbcda6b3fc752dab2b0f082ea">
-                        <div class="bg-success status-indicator"></div>
-                      </div>
-                      <div class="font-weight-bold">
-                        <div class="text-truncate"><span>Am I a good boy? The reason I ask is because someone told me that people say this to all dogs, even if they aren't good...</span></div>
-                        <p class="small text-gray-500 mb-0">Chicken the Dog · 2w</p>
-                      </div>
-                    </a><a class="text-center dropdown-item small text-gray-500" href="#">Show All Alerts</a>
-                  </div>
                 </div>
                 <div class="shadow dropdown-list dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown"></div>
               </li>
@@ -145,29 +79,15 @@
                 <div class="card-body">
                   <div class="row align-items-center no-gutters">
                     <div class="col mr-2">
-                      <div class="text-uppercase text-danger text-center font-weight-bold text-xs mb-1"><span>We found the nearest 3D printing facility to you!</span></div>
-                      Name<div class="text-dark font-weight-bold h5 mb-0"><span><%=printer.name%></span></div>
-                      Owner<div class="text-dark font-weight-bold h5 mb-0"><span><%=printer.owner%></span></div>
-                      Location<div class="text-dark font-weight-bold h5 mb-0"><span><%=printer.location%></span></div>
-                      Contact<div class="text-dark font-weight-bold h5 mb-0"><span><%=printer.contact%></span></div>
-                      Email<div class="text-dark font-weight-bold h5 mb-0"><span><%=printer.email%></span></div>
-                      <div class="text-uppercase text-right"><span>Distance: <%=distance%> km</span></div>
+                      <div class="text-uppercase text-danger text-center font-weight-bold text-lg mb-1"><span>Your Order has been placed successfully!</span></div>
+                      Order ID: <div class="text-dark font-weight-bold h5 mb-0"><span><%=details.orderID%></span></div>
+                      Design ID: <div class="text-dark font-weight-bold h5 mb-0"><span><%=details.designID%></span></div>
+                      Quantity: <div class="text-dark font-weight-bold h5 mb-0"><span><%=details.quantity%></span></div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="row justify-content-center">
-            <form action="/user/place-order/success" method="POST">
-              <input type="text" name="designid" value="<%=details.designid%>" hidden>
-              <input type="text" name="userid" value="<%=details.userid%>" hidden>
-              <input type="text" name="address1" value="<%=details.address1%>" hidden>
-              <input type="text" name="address2" value="<%=details.address2%>" hidden>
-              <input type="text" name="coordinates" value="<%=details.coordinates%>" hidden>
-              <input type="text" name="quantity" value="<%=details.quantity%>" hidden>
-              <button class="btn btn-danger">Confirm Order</button>
-            </form>
           </div>
         </div>
         <br><br><br>

@@ -264,7 +264,7 @@ function createOrder(req, res, doc) {
                 console.log(doc);
                 //result = JSON.parse(proposalResponses[0]);
                 console.log(proposalResponses[0].name)
-                res.send(doc)
+                res.render('order-success', {details: doc})
             } else {
                 res.send({ code: "500", message: proposalResponses[0].response.message });
                 console.error("Transaction proposal was bad");
