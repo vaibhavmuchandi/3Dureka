@@ -117,7 +117,9 @@ router.post('/place-order/confirm-order', (req, res) => {
   let coordinates = req.body.coordinates.split(',');
   let address2 = req.body.address2;
   let quantity = req.body.quantity;
-  User.find({flag: 'printer'}, (err, printers) => {
+  let printerType = req.body.typeOfPrinter;
+  User.find({flag: 'printer', printerType: printerType}, (err, printers) => {
+    console.log(printers);
     let distance = []
     for(let i in printers) {
       distance.push(calcDist(coordinates, printers[i].coordinates))
@@ -153,19 +155,15 @@ router.post('/place-order/success', async (req, res)=> {
     'printerID' : printerid.toString()
   }
 
-  let printer = await User.findOneAndUpdate({_id: printerid},{$push: {orders: orderid}}, (err, printer) => {
+  let printer = await User.findOneAndUpdate({_id: printerid},{$addToSet: {orders: orderid}}, { safe: true, upsert: true }, (err, printer) => {
     if (err){
       console.log(err)
-    } else {
-
     }
   })
 
-  let customer = await User.findOneAndUpdate({_id: userId}, {$push: {orders: orderid}}, (err, cust) => {
+  let customer = await User.findOneAndUpdate({_id: userId}, {$addToSet: {orders: orderid}}, { safe: true, upsert: true }, (err, cust) => {
     if(err){
       console.log(err)
-    } else {
-
     }
   })
 
@@ -188,6 +186,7 @@ router.get('/orders-placed', async (req, res) => {
       console.log(err)
     }
   })
+  orders = new Set(users.orders)
   res.render('placed-orders',{orders: users.orders, details: {},currentdetails: {}})
 })
 

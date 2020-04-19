@@ -33,7 +33,7 @@ router.get('/sign-up', (req, res) => {
 })
 
 router.post('/sign-up', (req, res) => {
-  User.register(new User({ username: req.body.username, email: req.body.email, name: req.body.name, owner: req.body.owner, contact: req.body.contact, location: req.body.location, coordinates: req.body.coordinates.split(','), flag: req.body.type}), req.body.password, function(err, user) {
+  User.register(new User({ username: req.body.username, email: req.body.email, name: req.body.name, owner: req.body.owner, contact: req.body.contact, location: req.body.location, coordinates: req.body.coordinates.split(','), printerTypes: req.body.typesOfPrinter.split(','), flag: req.body.type}), req.body.password, function(err, user) {
         if (err) {
             console.log(err);
         } else {

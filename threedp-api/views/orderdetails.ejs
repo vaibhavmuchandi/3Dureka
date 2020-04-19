@@ -17,15 +17,14 @@
       <div class="container-fluid d-flex flex-column p-0">
         <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
           <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-laugh-wink"></i></div>
-          <div class="sidebar-brand-text mx-3"><span>Brand</span></div>
+          <div class="sidebar-brand-text mx-3"><span>3Dureka</span></div>
         </a>
         <hr class="sidebar-divider my-0">
         <ul class="nav navbar-nav text-light" id="accordionSidebar">
-          <li class="nav-item" role="presentation"><a class="nav-link active" href="index.html"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
-          <li class="nav-item" role="presentation"><a class="nav-link" href="profile.html"><i class="fas fa-user"></i><span>Profile</span></a></li>
-          <li class="nav-item" role="presentation"><a class="nav-link" href="table.html"><i class="fas fa-table"></i><span>Table</span></a></li>
-          <li class="nav-item" role="presentation"><a class="nav-link" href="login.html"><i class="far fa-user-circle"></i><span>Login</span></a></li>
-          <li class="nav-item" role="presentation"><a class="nav-link" href="register.html"><i class="fas fa-user-circle"></i><span>Register</span></a></li>
+          <li class="nav-item" role="presentation"><a class="nav-link" href="/"><i class="fas fa-home"></i><span>Home</span></a></li>
+          <li class="nav-item" role="presentation"><a class="nav-link active" href="/user/dashboard"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
+          <li class="nav-item" role="presentation"><a class="nav-link" href="/user/profile"><i class="fas fa-user"></i><span>Profile</span></a></li>
+          <li class="nav-item" role="presentation"><a class="nav-link" href="/user/orders-placed"><i class="fas fa-table"></i><span>Order Details</span></a></li>
         </ul>
         <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
       </div>
@@ -154,7 +153,7 @@
                       <input type="text" name="userid" value="<%=details.userid%>" hidden>
                       <!-- adress1 input-->
                       <div class="form-group">
-                        <label class="col-md-3 control-label" for="name">Address</label>
+                        <label class="col-md-3 control-label" for="name">Enter Area</label>
                         <div class="col-md-12">
                           <input id="inputAddress" name="address1" type="text" placeholder="Enter your address" autocomplete="off" class="form-control">
                         </div>
@@ -162,7 +161,7 @@
                       </div>
                       <!-- Address2 input-->
                       <div class="form-group">
-                        <label class="col-md-3 control-label" for="address">Address</label>
+                        <label class="col-md-4 control-label" for="address">Full Address</label>
                         <div class="col-md-12">
                           <input id="address" name="address2" type="text" placeholder="Enter your Address" class="form-control">
 
@@ -173,9 +172,25 @@
                       <!-- quantity input-->
                       <div class="form-group">
                         <label class="col-md-6 control-label" for="email">Quantity</label>
-                        <div class="col-md-9">
-                          <input id="quantity" name="quantity" type="text" placeholder="Enter the quantity" class="form-control">
+                        <div class="col-md-3">
+                          <input id="quantity" name="quantity" type="number" min="1" class="form-control">
                         </div>
+                      </div>
+
+                      <!-- Printing type -->
+                      <div class="form-group">
+                        <input type="text" name="typesOfPrinter" id="typesOfPrinter" hidden>
+                        <br>
+                        <h6 class="text-dark">Select printing type</h6>
+                        <div class="custom-control custom-radio"><input class="custom-control-input" name="typeOfPrinter" type="radio" id="formCheck-1" value="SLA"><label class="custom-control-label" for="formCheck-1">Stereolithography
+                            (SLA)</label>
+                        </div>
+                        <div class="custom-control custom-radio"><input class="custom-control-input" name="typeOfPrinter" type="radio" id="formCheck-2" value="FDM"><label class="custom-control-label" for="formCheck-2">Fused Deposition
+                            Modeling
+                            (FDM)</label></div>
+                        <div class="custom-control custom-radio"><input class="custom-control-input" name="typeOfPrinter" type="radio" id="formCheck-3" value="SLS"><label class="custom-control-label" for="formCheck-3">Selective Laser
+                            Sintering
+                            (SLS)</label></div>
                       </div>
 
 
