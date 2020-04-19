@@ -44,11 +44,13 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <% for(let i in orders){%>
                                 <tr>
-                                    <td>4525</td>
-                                    <td><button class = "btn btn-danger btn-md">Get current status</button></td>
-                                    <td><button class="btn btn-danger btn-md">Get order history</button></td>
+                                    <td><%=orders[i]%></td>
+                                    <td><form action="/user/orders/getstatus" method="POST"><input type="text" name="orders" value="<%=orders%>" hidden><input type="text" name="orderid" value="<%=orders[i]%>" hidden><button class = "btn btn-danger btn-md">Get current status</button></form></td>
+                                    <td><form action="/user/orders/gethistory" method="POST"><input type="text" name="orders" value="<%=orders%>" hidden><input type="text" name="orderid" value="<%=orders[i]%>" hidden><button class="btn btn-danger btn-md">Get order history</button></form></td>
                                 </tr>
+                                <%}%>
                             </tbody>
                         </table>
                     </div>
@@ -66,11 +68,15 @@
                         <div class="card-header py-1">
                             <p class="text-primary m-0 font-weight-bold">Current Status</p>
                         </div>
+                        <%for(let i in details){%>
                         <div class="card-body">
-                            <strong>Order ID: </strong>5252 <br>
-                            <strong>Status: </strong>Printing Started! <br>
-                            <strong>Items Procured: </strong>Silk 20kg <br>
+                            <strong>Order ID: </strong><%=details[i].orderID%> <br>
+                            <strong>Design ID: </strong><%=details[i].designID%> <br>
+                            <strong>Quantity: </strong><%=details[i].quantity%>
+                            <strong>Status: </strong><%=details[i].currentStatus%> <br>
+                            <strong>Items Procured: </strong><%=details[i].itemsProcured%> <br>
                         </div>
+                        <% } %>
                     </div>
                 </div>
                 <div class="col">
@@ -78,11 +84,16 @@
                         <div class="card-header py-1">
                             <p class="text-primary m-0 font-weight-bold">Order history</p>
                         </div>
-                    <div class="card-body">
-                        <strong>Order ID: </strong>5252 <br>
-                        <strong>Status: </strong>Printing Started! <br>
-                        <strong>Items Procured: </strong>Silk 20kg <br>
-                    </div>
+                        <%for(let i in details){%>
+                            <div class="card-body">
+                                <strong>Txn ID: </strong><%=details[i].TxId%> <br>
+                                <strong>Order ID: </strong><%=details[i].Value.orderID%> <br>
+                                <strong>Design ID: </strong><%=details[i].Value.designID%> <br>
+                                <strong>Quantity: </strong><%=details[i].Value.quantity%>
+                                <strong>Status: </strong><%=details[i].Value.currentStatus%> <br>
+                                <strong>Items Procured: </strong><%=details[i].Value.itemsProcured%> <br>
+                            </div>
+                        <% } %>
                     </div>
                 </div>
             </div>

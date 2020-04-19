@@ -183,8 +183,50 @@ router.post('/place-order/success', async (req, res)=> {
 
 });
 
-router.get('/orders-placed', (req, res) => {
-  res.render('placed-orders')
+router.get('/orders-placed', async (req, res) => {
+  user = req.user._id;
+  let users = await User.findOne({_id: user}, (err, found) => {
+    if(err){
+      console.log(err)
+    }
+  })
+  res.render('placed-orders',{orders: users.orders, details: {}})
+})
+
+router.get('/orders/getstatus', async (req, res) => {
+  let user = req.user._id;
+  let users = await User.findOne({_id: user}, (err, found) => {
+    if(err){
+      console.log(err)
+    }
+  })
+  res.render('placed-orders',{orders: users.orders, details: {}})
+})
+
+router.post('/orders/getstatus', async (req, res) => {
+  let doc = {
+    'orderID' : req.body.orderid,
+    'orders' : req.body.orders
+  }
+  fabrichelper.getStatus(req, res, doc)
+})
+
+router.get('/orders/gethistory', async (req, res) => {
+  let user = req.user._id;
+  let users = await User.findOne({_id: user}, (err, found) => {
+    if(err){
+      console.log(err)
+    }
+  })
+  res.render('placed-orders',{orders: users.orders, details: {}})
+})
+
+router.post('/orders/gethistory', async (req, res) => {
+  let doc = {
+    'orderID' : req.body.orderid,
+    'orders' : req.body.orders
+  }
+  fabrichelper.getOrderHistory(req, res, doc)
 })
 
 
